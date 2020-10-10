@@ -1,0 +1,16 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+    symfony:
+        container_xml_path: 'var/cache/dev/App_KernelDevDebugContainer.xml'
+        console_application_loader: build/phpstan/console-loader.php
+    doctrine:
+        objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false

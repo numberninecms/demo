@@ -1,0 +1,15 @@
+---
+template: Page - Without header
+---
+{% extends N9_base_template() %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+    <div class="container standard-container">
+        <main class="page-main">
+            {{ N9_component('Page/SinglePage', {page: entity}) }}
+        </main>
+    </div>
+{% endblock %}

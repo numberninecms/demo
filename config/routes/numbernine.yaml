@@ -1,0 +1,6 @@
+numbernine:
+  resource: '@NumberNineBundle/Resources/config/routing.yaml'
+
+#numbernine_commerce_auto_routing:
+#    resource: '@NumberNineCommerceBundle/Resources/config/routing.yaml'
+#
