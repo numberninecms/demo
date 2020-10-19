@@ -5,6 +5,7 @@
         "php": "^7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "numberninecms/cms": "*@dev",
         "numberninecms/chapterone": "*@dev",
         "numberninecms/faker": "*@dev",
         "sensio/framework-extra-bundle": "^5.5",
