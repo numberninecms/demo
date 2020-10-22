@@ -93,28 +93,5 @@
             "require": "5.1.*"
         }
     },
-    "minimum-stability": "stable",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../cms",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "../chapterone",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "../faker",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
+    "minimum-stability": "stable"
 }
