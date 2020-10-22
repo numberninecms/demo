@@ -19,15 +19,11 @@
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
-        <testsuite name="NumberNine CMS Core Suite">
-            <directory>vendor/numbernine/cms/tests</directory>
-        </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
-            <directory suffix=".php">./vendor/numbernine/cms/src</directory>
         </whitelist>
     </filter>
 
