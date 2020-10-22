@@ -1,6 +1,8 @@
 {
+    "name": "numberninecms/demo",
+    "description": "Demo project for testing NumberNine CMS",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "^7.4.0",
         "ext-ctype": "*",
@@ -34,6 +36,7 @@
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "phpro/grumphp": "^0.18.1",
         "phpstan/phpstan": "^0.12.25",
         "phpstan/phpstan-doctrine": "^0.12.13",
