@@ -1,31 +1,33 @@
 .DEFAULT_GOAL := help
 
-COMPOSER = composer
-PHPUNIT = php bin/phpunit
-SYMFONY = php bin/console
-SYMFONY_BIN = symfony
-YARN = yarn
-PHPSTAN = vendor/bin/phpstan
-TWIGCS = vendor/bin/twigcs
-DSYMFONY = docker exec numbernine_demo_php $(SYMFONY)
-DCOMPOSER = docker exec numbernine_demo_composer
+COMPOSER := composer
+PHPUNIT := php bin/phpunit
+SYMFONY := php bin/console
+SYMFONY_BIN := symfony
+YARN := yarn
+PHPSTAN := vendor/bin/phpstan
+TWIGCS := vendor/bin/twigcs
+DSYMFONY := docker exec numbernine_demo_php $(SYMFONY)
+DCOMPOSER := docker exec numbernine_demo_composer
 
 ##
-## Development tools
+##Development tools
 dump-routing: ## Dump routes to Admin project
 	@$(SYMFONY) fos:js-routing:dump --callback="export default " --target=../admin/src/assets/routes/fos_js_routes.ts
 
 ##
-## Database
+##Database
 .PHONY: db db-cache fixtures
 
 db: db-reset fixtures ## Reset database and load fixtures
 
 db-reset: ## Reset database
 	@$(EXEC_PHP) php -r 'echo "Waiting for database...\n"; set_time_limit(30); for(;;) { if(@fsockopen(localhost.":".(3306))) { break; }}'
-	@-$(SYMFONY) doctrine:database:drop --if-exists --force
-	@-$(SYMFONY) doctrine:database:create --if-not-exists
-	@$(SYMFONY) doctrine:schema:update --force
+	@rm -rf migrations/*.php
+	@-$(SYMFONY) doctrine:database:drop --quiet --if-exists --force
+	@-$(SYMFONY) doctrine:database:create --quiet --if-not-exists
+	@-$(SYMFONY) doctrine:migrations:diff --quiet --no-interaction
+	@-$(SYMFONY) doctrine:migrations:migrate --quiet --no-interaction
 
 db-cache: ## Clear doctrine database cache
 	@$(SYMFONY) doctrine:cache:clear-metadata
@@ -38,7 +40,7 @@ fixtures: ## Load fixtures
 	@$(SYMFONY) doctrine:fixtures:load --no-interaction
 
 ##
-## Lint
+##Lint
 .PHONY: lint lint-container lint-twig lint-xliff lint-yaml
 
 lint: vendor lint-container lint-twig lint-xliff lint-yaml ## Run all lint commands
@@ -57,33 +59,31 @@ lint-yaml: vendor ## Check yaml syntax in /config and /translations folders
 
 
 ##
-## Node.js
+##Node
 .PHONY: assets
 
-yarn.lock: package.json
-	$(YARN) upgrade
-
-node_modules: yarn.lock ## Install yarn packages
+node_modules: package.json yarn.lock ## Install yarn packages
 	@$(YARN)
 
 assets: node_modules ## Run Webpack Encore to compile assets
 	@$(YARN) dev
 
-
 ##
-## PHP
+##PHP
 composer.lock: composer.json
-	@$(COMPOSER) update
+	@echo compose.lock is not up to date.
 
 vendor: composer.lock ## Install dependencies in /vendor folder
 	@$(COMPOSER) install
 
-
 ##
-## Project
-.PHONY: install start update cache-clear cache-warmup clean reset
+##Project
+.PHONY: numbernine install start update cache-clear cache-warmup clean reset
 
-install: vendor db assets ## Install project dependencies
+numbernine: vendor ## Create NumberNine admin symlink and .env.local
+	@$(SYMFONY) numbernine:install --force
+
+install: numbernine db assets ## Install project dependencies
 
 start: install serve ## Install project dependencies and launch symfony web server
 
@@ -108,13 +108,14 @@ reset: unserve clean install
 
 
 ##
-## Symfony bin
+##Local server
 .PHONY: serve unserve security
 
 serve: ## Run symfony web server in the background
-	@$(SYMFONY_BIN) serve --daemon --no-tls
+	@$(SYMFONY_BIN) local:server:ca:install
+	@$(SYMFONY_BIN) serve -d
 
-unserve: ## Stop symfony web server
+stop: ## Stop symfony web server
 	@$(SYMFONY_BIN) server:stop
 
 security: vendor ## Check packages vulnerabilities (using composer.lock)
@@ -122,30 +123,28 @@ security: vendor ## Check packages vulnerabilities (using composer.lock)
 
 
 ##
-## Tests
+##Tests
 .PHONY: tests
 
 tests: vendor ## Run tests
 	@$(PHPUNIT)
 
 phpstan:
-	@$(PHPSTAN) analyse > var/log/phpstan.log
+	@$(PHPSTAN) analyse
 
 twigcs:
-	@$(TWIGCS) lib > var/log/twigcs.log
+	@$(TWIGCS) lib
 
 ##
-## Utils
+##Utils
 .PHONY: purge
 
 purge: ## Purge cache and logs
 	@rm -rf var/cache/* var/log/*
 	@echo -e "Cache and logs have been deleted !"
 
-
 ##
-## Docker
-
+##Docker
 .PHONY: docker-db docker-db-cache docker-fixtures
 
 docker-db: docker-db-reset docker-fixtures ## Reset database and load fixtures
@@ -168,6 +167,6 @@ docker-cc: ## Clear and warmup cache
 	@$(DSYMFONY) cache:clear
 
 ##
-## Help
+##Help
 help: ## List of all commands
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
