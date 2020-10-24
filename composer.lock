@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "5e3f072419319e6747a967c540587da9",
+  "content-hash": "66c52eaa982b317e47977f646bfaaf0e",
   "packages": [
     {
       "name": "behat/transliterator",
@@ -15,16 +15,16 @@
         "reference": "3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc"
       },
       "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc",
-                "reference": "3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+        "type": "zip",
+        "url": "https://api.github.com/repos/Behat/Transliterator/zipball/3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc",
+        "reference": "3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
             },
             "require": {
                 "php": ">=5.3.3"
@@ -152,15 +152,15 @@
                     "type": "custom"
                 },
                 {
-                    "url": "https://github.com/composer",
-                    "type": "github"
+                  "url": "https://github.com/composer",
+                  "type": "github"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                "type": "tidelift"
+              }
             ],
-            "time": "2020-08-25T05:50:16+00:00"
+          "time": "2020-08-25T05:50:16+00:00"
         },
     {
       "name": "doctrine/annotations",
@@ -182,17 +182,17 @@
           }
         ]
       },
-            "require": {
-                "doctrine/lexer": "1.*",
-                "ext-tokenizer": "*",
-                "php": "^7.1 || ^8.0"
-            },
-            "require-dev": {
-              "doctrine/cache": "1.*",
-              "doctrine/coding-standard": "^6.0 || ^8.1",
-              "phpstan/phpstan": "^0.12.20",
-              "phpunit/phpunit": "^7.5 || ^9.1.5"
-            },
+      "require": {
+        "doctrine/lexer": "1.*",
+        "ext-tokenizer": "*",
+        "php": "^7.1 || ^8.0"
+      },
+      "require-dev": {
+        "doctrine/cache": "1.*",
+        "doctrine/coding-standard": "^6.0 || ^8.1",
+        "phpstan/phpstan": "^0.12.20",
+        "phpunit/phpunit": "^7.5 || ^9.1.5"
+      },
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -211,16 +211,16 @@
             "authors": [
                 {
                     "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
+                  "email": "guilhermeblanco@gmail.com"
                 },
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                },
+              {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+              },
+              {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+              },
               {
                 "name": "Jonathan Wage",
                 "email": "jonwage@gmail.com"
@@ -239,16 +239,16 @@
       ],
       "time": "2020-10-17T22:05:33+00:00"
     },
-        {
-            "name": "doctrine/cache",
-            "version": "1.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/cache.git",
-                "reference": "13e3381b25847283a91948d04640543941309727"
-            },
-            "dist": {
-                "type": "zip",
+    {
+      "name": "doctrine/cache",
+      "version": "1.10.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/doctrine/cache.git",
+        "reference": "13e3381b25847283a91948d04640543941309727"
+      },
+      "dist": {
+        "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/cache/zipball/13e3381b25847283a91948d04640543941309727",
                 "reference": "13e3381b25847283a91948d04640543941309727",
                 "shasum": "",
@@ -412,36 +412,29 @@
             ],
             "time": "2020-07-27T17:53:49+00:00"
         },
-        {
-            "name": "doctrine/common",
-            "version": "2.13.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/common.git",
-                "reference": "f3812c026e557892c34ef37f6ab808a6b567da7f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/f3812c026e557892c34ef37f6ab808a6b567da7f",
-                "reference": "f3812c026e557892c34ef37f6ab808a6b567da7f",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
+    {
+      "name": "doctrine/common",
+      "version": "3.0.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/doctrine/common.git",
+        "reference": "a3c6479858989e242a2465972b4f7a8642baf0d4"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/doctrine/common/zipball/a3c6479858989e242a2465972b4f7a8642baf0d4",
+        "reference": "a3c6479858989e242a2465972b4f7a8642baf0d4",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
             "require": {
-                "doctrine/annotations": "^1.0",
-                "doctrine/cache": "^1.0",
-                "doctrine/collections": "^1.0",
-                "doctrine/event-manager": "^1.0",
-                "doctrine/inflector": "^1.0",
-                "doctrine/lexer": "^1.0",
-                "doctrine/persistence": "^1.3.3",
-                "doctrine/reflection": "^1.0",
-                "php": "^7.1 || ^8.0"
+              "doctrine/persistence": "^2.0",
+              "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^1.0",
@@ -454,7 +447,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.11.x-dev"
+                  "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -513,7 +506,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-05T16:46:05+00:00"
+      "time": "2020-06-05T16:59:53+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -901,15 +894,15 @@
                     "type": "custom"
                 },
                 {
-                    "url": "https://www.patreon.com/phpdoctrine",
-                    "type": "patreon"
+                  "url": "https://www.patreon.com/phpdoctrine",
+                  "type": "patreon"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-fixtures-bundle",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-fixtures-bundle",
+                "type": "tidelift"
+              }
             ],
-            "time": "2020-09-01T07:06:14+00:00"
+          "time": "2020-09-01T07:06:14+00:00"
         },
     {
       "name": "doctrine/doctrine-migrations-bundle",
@@ -931,21 +924,21 @@
           }
         ]
       },
-            "require": {
-              "doctrine/doctrine-bundle": "~1.0|~2.0",
-              "doctrine/migrations": "~3.0",
-              "php": "^7.2",
-              "symfony/framework-bundle": "~3.4|~4.0|~5.0"
-            },
-            "require-dev": {
-              "doctrine/coding-standard": "^5.0",
-              "doctrine/orm": "^2.6",
-              "phpstan/phpstan": "^0.11",
-              "phpstan/phpstan-deprecation-rules": "^0.11",
-              "phpstan/phpstan-phpunit": "^0.11",
-              "phpstan/phpstan-strict-rules": "^0.11",
-              "phpunit/phpunit": "^6.4|^7.0"
-            },
+      "require": {
+        "doctrine/doctrine-bundle": "~1.0|~2.0",
+        "doctrine/migrations": "~3.0",
+        "php": "^7.2",
+        "symfony/framework-bundle": "~3.4|~4.0|~5.0"
+      },
+      "require-dev": {
+        "doctrine/coding-standard": "^5.0",
+        "doctrine/orm": "^2.6",
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-deprecation-rules": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11",
+        "phpstan/phpstan-strict-rules": "^0.11",
+        "phpunit/phpunit": "^6.4|^7.0"
+      },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1343,15 +1336,15 @@
                     "type": "custom"
                 },
                 {
-                    "url": "https://www.patreon.com/phpdoctrine",
-                    "type": "patreon"
+                  "url": "https://www.patreon.com/phpdoctrine",
+                  "type": "patreon"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
+                "type": "tidelift"
+              }
             ],
-            "time": "2020-05-25T17:44:05+00:00"
+          "time": "2020-05-25T17:44:05+00:00"
         },
     {
       "name": "doctrine/migrations",
@@ -1373,16 +1366,16 @@
           }
         ]
       },
-            "require": {
-              "doctrine/dbal": "^2.10",
-              "doctrine/event-manager": "^1.0",
-              "ocramius/package-versions": "^1.3",
-              "ocramius/proxy-manager": "^2.0.2",
-              "php": "^7.2",
-              "psr/log": "^1.1.3",
-              "symfony/console": "^3.4||^4.0||^5.0",
-              "symfony/stopwatch": "^3.4||^4.0||^5.0"
-            },
+      "require": {
+        "doctrine/dbal": "^2.10",
+        "doctrine/event-manager": "^1.0",
+        "ocramius/package-versions": "^1.3",
+        "ocramius/proxy-manager": "^2.0.2",
+        "php": "^7.2",
+        "psr/log": "^1.1.3",
+        "symfony/console": "^3.4||^4.0||^5.0",
+        "symfony/stopwatch": "^3.4||^4.0||^5.0"
+      },
             "require-dev": {
               "doctrine/coding-standard": "^7.0",
               "doctrine/orm": "^2.6",
@@ -1425,14 +1418,14 @@
                     "name": "Benjamin Eberlei",
                     "email": "kontakt@beberlei.de"
                 },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Michael Simonson",
-                    "email": "contact@mikesimonson.com"
-                }
+              {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+              },
+              {
+                "name": "Michael Simonson",
+                "email": "contact@mikesimonson.com"
+              }
             ],
       "description": "PHP Doctrine Migrations project offer additional functionality on top of the database abstraction layer (DBAL) for versioning your database schema and easily deploying changes to it. It is a very easy to use and a powerful tool.",
       "homepage": "https://www.doctrine-project.org/projects/migrations.html",
@@ -1458,16 +1451,16 @@
       ],
       "time": "2020-06-21T08:55:42+00:00"
     },
-        {
-            "name": "doctrine/orm",
-            "version": "2.7.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/orm.git",
-                "reference": "7d84a4998091ece4d645253ac65de9f879eeed2f"
-            },
-            "dist": {
-                "type": "zip",
+    {
+      "name": "doctrine/orm",
+      "version": "2.7.4",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/doctrine/orm.git",
+        "reference": "7d84a4998091ece4d645253ac65de9f879eeed2f"
+      },
+      "dist": {
+        "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/orm/zipball/7d84a4998091ece4d645253ac65de9f879eeed2f",
                 "reference": "7d84a4998091ece4d645253ac65de9f879eeed2f",
                 "shasum": "",
@@ -1552,47 +1545,47 @@
             ],
             "time": "2020-10-10T17:11:26+00:00"
         },
-        {
-            "name": "doctrine/persistence",
-            "version": "1.3.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/persistence.git",
-                "reference": "7a6eac9fb6f61bba91328f15aa7547f4806ca288"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/7a6eac9fb6f61bba91328f15aa7547f4806ca288",
-                "reference": "7a6eac9fb6f61bba91328f15aa7547f4806ca288",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
+    {
+      "name": "doctrine/persistence",
+      "version": "2.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/doctrine/persistence.git",
+        "reference": "1dee036f22cd5dc0bc12132f1d1c38415907be55"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/doctrine/persistence/zipball/1dee036f22cd5dc0bc12132f1d1c38415907be55",
+        "reference": "1dee036f22cd5dc0bc12132f1d1c38415907be55",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
             "require": {
                 "doctrine/annotations": "^1.0",
                 "doctrine/cache": "^1.0",
                 "doctrine/collections": "^1.0",
                 "doctrine/event-manager": "^1.0",
                 "doctrine/reflection": "^1.2",
-                "php": "^7.1 || ^8.0"
+              "php": "^7.1"
             },
             "conflict": {
                 "doctrine/common": "<2.10@dev"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^6.0",
-                "phpstan/phpstan": "^0.11",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-                "vimeo/psalm": "^3.11"
+              "doctrine/coding-standard": "^6.0",
+              "phpstan/phpstan": "^0.11",
+              "phpunit/phpunit": "^7.0",
+              "vimeo/psalm": "^3.11"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+                  "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -1654,7 +1647,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-20T12:56:16+00:00"
+      "time": "2020-05-12T19:32:44+00:00"
         },
         {
             "name": "doctrine/reflection",
@@ -1987,55 +1980,64 @@
             ],
             "time": "2019-12-12T13:22:17+00:00"
         },
-        {
-            "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.42",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "b6c4442b4f32ce05673fbdf1fa4a2d5e315cc0a4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/b6c4442b4f32ce05673fbdf1fa4a2d5e315cc0a4",
-                "reference": "b6c4442b4f32ce05673fbdf1fa4a2d5e315cc0a4",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "behat/transliterator": "~1.2",
-                "doctrine/common": "~2.4",
-                "php": ">=5.3.2"
-            },
-            "conflict": {
-                "doctrine/annotations": "<1.2",
-                "doctrine/mongodb-odm": ">=2.0"
-            },
-            "require-dev": {
-                "doctrine/common": ">=2.5.0",
-                "doctrine/mongodb-odm": ">=1.0.2 <2.0",
-                "doctrine/orm": ">=2.5.0",
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5",
-                "symfony/yaml": "^2.6 || ^3.0 || ^4.0 || ^5.0"
-            },
-            "suggest": {
+    {
+      "name": "gedmo/doctrine-extensions",
+      "version": "v3.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
+        "reference": "be551985759946a45d052777c2906aa52db64532"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/be551985759946a45d052777c2906aa52db64532",
+        "reference": "be551985759946a45d052777c2906aa52db64532",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
+      "require": {
+        "behat/transliterator": "~1.2",
+        "doctrine/annotations": "^1.2",
+        "doctrine/cache": "^1.0",
+        "doctrine/collections": "^1.0",
+        "doctrine/common": "^2.13 || ^3.0",
+        "doctrine/event-manager": "^1.0",
+        "php": "^7.2"
+      },
+      "conflict": {
+        "doctrine/mongodb": "<1.3",
+        "doctrine/mongodb-odm": "<2.0",
+        "sebastian/comparator": "<2.0"
+      },
+      "provide": {
+        "ext-mongo": "1.6.12"
+      },
+      "require-dev": {
+        "alcaeus/mongo-php-adapter": "^1.1",
+        "doctrine/mongodb-odm": "^2.0",
+        "doctrine/orm": "^2.6.3",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpunit/phpunit": "^8.5",
+        "symfony/yaml": "^4.1"
+      },
+      "suggest": {
                 "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
                 "doctrine/orm": "to use the extensions with the ORM"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                  "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gedmo\\": "lib/Gedmo"
+                  "Gedmo\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2073,7 +2075,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2020-08-21T01:27:20+00:00"
+      "time": "2020-09-23T16:40:45+00:00"
         },
         {
             "name": "imagine/imagine",
@@ -2487,48 +2489,48 @@
             ],
             "time": "2019-11-25T12:16:39+00:00"
         },
-        {
-            "name": "numberninecms/chapterone",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/numberninecms/chapterone.git",
-                "reference": "ddc2692877c5e0ab644bfd1281ff1a43733e21fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/numberninecms/chapterone/zipball/ddc2692877c5e0ab644bfd1281ff1a43733e21fa",
-                "reference": "ddc2692877c5e0ab644bfd1281ff1a43733e21fa",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
+    {
+      "name": "numberninecms/chapterone",
+      "version": "dev-develop",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/numberninecms/chapterone.git",
+        "reference": "42983a92d77c93309484101b13bf8374bd1c5f3f"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/numberninecms/chapterone/zipball/42983a92d77c93309484101b13bf8374bd1c5f3f",
+        "reference": "42983a92d77c93309484101b13bf8374bd1c5f3f",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
             "require": {
-                "doctrine/doctrine-bundle": "^2.0",
-                "doctrine/doctrine-fixtures-bundle": "^3.3",
-                "doctrine/orm": "^2.7",
-                "numberninecms/cms": "*@dev",
-                "numberninecms/faker": "*@dev",
-                "php": "^7.4",
-                "symfony/event-dispatcher": "^5.1",
-                "symfony/form": "^5.1",
-                "symfony/http-foundation": "^5.1",
-                "symfony/security-core": "^5.1",
-                "symfony/security-csrf": "^5.1",
-                "symfony/security-http": "^5.1"
+              "doctrine/doctrine-bundle": "^2.0",
+              "doctrine/doctrine-fixtures-bundle": "^3.3",
+              "doctrine/orm": "^2.7",
+              "numberninecms/cms": "dev-develop",
+              "numberninecms/faker": "dev-develop",
+              "php": "^7.4",
+              "symfony/event-dispatcher": "^5.1",
+              "symfony/form": "^5.1",
+              "symfony/http-foundation": "^5.1",
+              "symfony/security-core": "^5.1",
+              "symfony/security-csrf": "^5.1",
+              "symfony/security-http": "^5.1"
             },
             "require-dev": {
-                "friendsoftwig/twigcs": "^3.2",
-                "phpro/grumphp": "^0.18.0",
-                "phpstan/phpstan": "^0.12.25",
-                "phpstan/phpstan-doctrine": "^0.12.13",
-                "phpstan/phpstan-phpunit": "^0.12.8",
-                "phpstan/phpstan-symfony": "^0.12.6",
-                "roave/security-advisories": "dev-latest"
+              "friendsoftwig/twigcs": "^3.2",
+              "phpro/grumphp": "^1.0.0",
+              "phpstan/phpstan": "^0.12.25",
+              "phpstan/phpstan-doctrine": "^0.12.13",
+              "phpstan/phpstan-phpunit": "^0.12.8",
+              "phpstan/phpstan-symfony": "^0.12.6",
+              "roave/security-advisories": "dev-latest"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2537,61 +2539,69 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "William Arin",
-                    "email": "williamarin.dev@gmail.com"
-                }
-            ],
-            "description": "ChapterOne is a full-featured starter theme for NumberNine CMS",
-            "time": "2020-10-20T16:59:23+00:00"
-        },
+      "license": [
+        "MIT"
+      ],
+      "authors": [
         {
-            "name": "numberninecms/cms",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/numberninecms/cms.git",
-                "reference": "b81edeea189d0ab83e7b052af43fcbbe98c4ca12"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/numberninecms/cms/zipball/b81edeea189d0ab83e7b052af43fcbbe98c4ca12",
-                "reference": "b81edeea189d0ab83e7b052af43fcbbe98c4ca12",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
+          "name": "William Arin",
+          "email": "williamarin.dev@gmail.com"
+        }
+      ],
+      "description": "ChapterOne is a full-featured starter theme for NumberNine CMS",
+      "keywords": [
+        "blog",
+        "blogging",
+        "cms",
+        "numbernine",
+        "symfony",
+        "theme"
+      ],
+      "time": "2020-10-24T16:45:59+00:00"
+    },
+    {
+      "name": "numberninecms/cms",
+      "version": "dev-develop",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/numberninecms/cms.git",
+        "reference": "cd5ea441f45cc801f1edef0aa02e4b87d94a72d9"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/numberninecms/cms/zipball/cd5ea441f45cc801f1edef0aa02e4b87d94a72d9",
+        "reference": "cd5ea441f45cc801f1edef0aa02e4b87d94a72d9",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
             "require": {
-                "doctrine/doctrine-bundle": "^2.0",
-                "doctrine/doctrine-fixtures-bundle": "^3.3",
-                "doctrine/orm": "^2.7",
-                "ext-ctype": "*",
-                "ext-exif": "*",
-                "ext-gd": "*",
-                "ext-iconv": "*",
-                "ext-intl": "*",
-                "ext-json": "*",
-                "friendsofsymfony/jsrouting-bundle": "^2.6",
-                "fzaninotto/faker": "^1.9",
-                "gedmo/doctrine-extensions": "^2.4",
-                "imagine/imagine": "^1.2",
-                "mpratt/relativetime": "^1.5",
-                "numberninecms/faker": "*@dev",
-                "php": "^7.4",
-                "scienta/doctrine-json-functions": "^4.1",
-                "stof/doctrine-extensions-bundle": "^1.4",
-                "symfony-cmf/routing-bundle": "^2.4",
-                "symfony/form": "^5.1",
-                "symfony/framework-bundle": "5.1.*",
-                "symfony/mime": "^5.1",
+              "doctrine/doctrine-bundle": "^2.0",
+              "doctrine/doctrine-fixtures-bundle": "^3.3",
+              "doctrine/orm": "^2.7.4",
+              "ext-ctype": "*",
+              "ext-exif": "*",
+              "ext-gd": "*",
+              "ext-iconv": "*",
+              "ext-intl": "*",
+              "ext-json": "*",
+              "friendsofsymfony/jsrouting-bundle": "^2.6",
+              "fzaninotto/faker": "^1.9",
+              "gedmo/doctrine-extensions": "^3.0",
+              "imagine/imagine": "^1.2",
+              "mpratt/relativetime": "^1.5",
+              "numberninecms/faker": "*@dev",
+              "php": "^7.4",
+              "scienta/doctrine-json-functions": "^4.1",
+              "stof/doctrine-extensions-bundle": "^1.4",
+              "symfony-cmf/routing-bundle": "^2.4",
+              "symfony/form": "^5.1",
+              "symfony/framework-bundle": "5.1.*",
+              "symfony/mime": "^5.1",
                 "symfony/security-core": "5.1.*",
                 "symfony/security-csrf": "5.1.*",
                 "symfony/security-guard": "5.1.*",
@@ -2606,15 +2616,14 @@
                 "wapmorgan/media-file": "^0.1.4"
             },
             "require-dev": {
-                "friendsoftwig/twigcs": "^3.2",
-                "nunomaduro/phpinsights": "^1.14",
-                "phpro/grumphp": "^0.18.0",
-                "phpstan/phpstan": "^0.12.25",
-                "phpstan/phpstan-doctrine": "^0.12.13",
-                "phpstan/phpstan-phpunit": "^0.12.8",
-                "phpstan/phpstan-symfony": "^0.12.6",
-                "phpunit/phpunit": "^9.2",
-                "roave/security-advisories": "dev-master"
+              "friendsoftwig/twigcs": "^3.2",
+              "phpro/grumphp": "^1.0",
+              "phpstan/phpstan": "^0.12.25",
+              "phpstan/phpstan-doctrine": "^0.12.13",
+              "phpstan/phpstan-phpunit": "^0.12.8",
+              "phpstan/phpstan-symfony": "^0.12.6",
+              "phpunit/phpunit": "^9.2",
+              "roave/security-advisories": "dev-master"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2628,38 +2637,42 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "William Arin",
-                    "email": "williamarin.dev@gmail.com"
-                }
-            ],
-            "description": "NumberNine is a content management system for Symfony",
-            "time": "2020-10-23T08:23:46+00:00"
-        },
+      "license": [
+        "MIT"
+      ],
+      "authors": [
         {
-            "name": "numberninecms/faker",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/numberninecms/faker.git",
-                "reference": "32f3787e61fb22298efe5fdbfa650544c5db2f27"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/numberninecms/faker/zipball/32f3787e61fb22298efe5fdbfa650544c5db2f27",
-                "reference": "32f3787e61fb22298efe5fdbfa650544c5db2f27",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
+          "name": "William Arin",
+          "email": "williamarin.dev@gmail.com"
+        }
+      ],
+      "description": "NumberNine is a content management system for Symfony",
+      "keywords": [
+        "cms",
+        "publishing"
+      ],
+      "time": "2020-10-24T14:38:41+00:00"
+    },
+    {
+      "name": "numberninecms/faker",
+      "version": "dev-develop",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/numberninecms/faker.git",
+        "reference": "8415f9711c918faee9acdaacaa3dafb1311f022b"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/numberninecms/faker/zipball/8415f9711c918faee9acdaacaa3dafb1311f022b",
+        "reference": "8415f9711c918faee9acdaacaa3dafb1311f022b",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
             "require": {
                 "fzaninotto/faker": "^1.9",
                 "php": "^7.4",
@@ -6176,15 +6189,15 @@
                     "type": "custom"
                 },
                 {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
+                  "url": "https://github.com/fabpot",
+                  "type": "github"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+              }
             ],
-            "time": "2020-09-27T03:44:28+00:00"
+          "time": "2020-09-27T03:44:28+00:00"
         },
     {
       "name": "symfony/orm-pack",
@@ -6206,16 +6219,16 @@
           }
         ]
       },
-            "require": {
-              "composer/package-versions-deprecated": "*",
-              "doctrine/doctrine-bundle": "*",
-              "doctrine/doctrine-migrations-bundle": "*",
-              "doctrine/orm": "*"
-            },
-            "type": "symfony-pack",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+      "require": {
+        "composer/package-versions-deprecated": "*",
+        "doctrine/doctrine-bundle": "*",
+        "doctrine/doctrine-migrations-bundle": "*",
+        "doctrine/orm": "*"
+      },
+      "type": "symfony-pack",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
             "description": "A pack for the Doctrine ORM",
             "funding": [
@@ -10262,16 +10275,16 @@
         "dist": {
           "type": "zip",
           "url": "https://api.github.com/repos/gitonomy/gitlib/zipball/d1fe4676bf1347c08dec84a14a4c5e7110740d72",
-                "reference": "d1fe4676bf1347c08dec84a14a4c5e7110740d72",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
+          "reference": "d1fe4676bf1347c08dec84a14a4c5e7110740d72",
+          "shasum": "",
+          "mirrors": [
+            {
+              "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+              "preferred": true
+            }
+          ]
+        },
+        "require": {
                 "ext-pcre": "*",
                 "php": "^5.6 || ^7.0 || ^8.0",
                 "symfony/polyfill-mbstring": "^1.7",
@@ -10365,15 +10378,15 @@
                     "PhpParser\\": "lib/PhpParser"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "BSD-3-Clause"
+          ],
+          "authors": [
+            {
+              "name": "Nikita Popov"
+            }
+          ],
           "description": "A PHP parser written in PHP",
           "keywords": [
             "parser",
@@ -10468,30 +10481,30 @@
             }
           ]
         },
-            "require": {
-              "amphp/amp": "^2.4",
-              "amphp/parallel": "^1.4",
-              "amphp/parallel-functions": "^0.1.3",
-              "composer-plugin-api": "~1.0 || ~2.0",
-              "doctrine/collections": "^1.6.7",
-              "ext-json": "*",
-              "gitonomy/gitlib": "^1.0.3",
-              "monolog/monolog": "~1.16 || ^2.0",
-              "opis/closure": "^3.5",
-              "php": "^7.3",
-              "psr/container": "^1.0",
-              "seld/jsonlint": "~1.1",
-              "symfony/config": "~4.4 || ~5.0",
-              "symfony/console": "~4.4 || ~5.0",
-              "symfony/dependency-injection": "~4.4 || ~5.0",
-              "symfony/dotenv": "~4.4 || ~5.0",
-              "symfony/event-dispatcher": "~4.4 || ~5.0",
-              "symfony/filesystem": "~4.4 || ~5.0",
-              "symfony/finder": "~4.4 || ~5.0",
-              "symfony/options-resolver": "~4.4 || ~5.0",
-              "symfony/process": "~4.4 || ~5.0",
-              "symfony/yaml": "~4.4 || ~5.0"
-            },
+        "require": {
+          "amphp/amp": "^2.4",
+          "amphp/parallel": "^1.4",
+          "amphp/parallel-functions": "^0.1.3",
+          "composer-plugin-api": "~1.0 || ~2.0",
+          "doctrine/collections": "^1.6.7",
+          "ext-json": "*",
+          "gitonomy/gitlib": "^1.0.3",
+          "monolog/monolog": "~1.16 || ^2.0",
+          "opis/closure": "^3.5",
+          "php": "^7.3",
+          "psr/container": "^1.0",
+          "seld/jsonlint": "~1.1",
+          "symfony/config": "~4.4 || ~5.0",
+          "symfony/console": "~4.4 || ~5.0",
+          "symfony/dependency-injection": "~4.4 || ~5.0",
+          "symfony/dotenv": "~4.4 || ~5.0",
+          "symfony/event-dispatcher": "~4.4 || ~5.0",
+          "symfony/filesystem": "~4.4 || ~5.0",
+          "symfony/finder": "~4.4 || ~5.0",
+          "symfony/options-resolver": "~4.4 || ~5.0",
+          "symfony/process": "~4.4 || ~5.0",
+          "symfony/yaml": "~4.4 || ~5.0"
+        },
             "require-dev": {
               "brianium/paratest": "^4.1",
               "composer/composer": "~1.9 || ^2.0@dev",
@@ -10502,10 +10515,10 @@
               "phpunit/phpunit": "^9.2"
             },
             "suggest": {
-                "atoum/atoum": "Lets GrumPHP run your unit tests.",
-                "behat/behat": "Lets GrumPHP validate your project features.",
-                "brianium/paratest": "Lets GrumPHP run PHPUnit in parallel.",
-                "codeception/codeception": "Lets GrumPHP run your project's full stack tests",
+              "atoum/atoum": "Lets GrumPHP run your unit tests.",
+              "behat/behat": "Lets GrumPHP validate your project features.",
+              "brianium/paratest": "Lets GrumPHP run PHPUnit in parallel.",
+              "codeception/codeception": "Lets GrumPHP run your project's full stack tests",
               "codegyre/robo": "Lets GrumPHP run your automated PHP tasks.",
               "designsecurity/progpilot": "Lets GrumPHP be sure that there are no vulnerabilities in your code.",
               "doctrine/orm": "Lets GrumPHP validate your Doctrine mapping files.",
@@ -10529,11 +10542,11 @@
               "roave/security-advisories": "Lets GrumPHP be sure that there are no known security issues.",
               "sebastian/phpcpd": "Lets GrumPHP find duplicated code.",
               "sensiolabs/security-checker": "Lets GrumPHP be sure that there are no known security issues.",
-                "squizlabs/php_codesniffer": "Lets GrumPHP sniff on your code.",
-                "sstalle/php7cc": "Lets GrumPHP check PHP 5.3 - 5.6 code compatibility with PHP 7.",
-                "symfony/phpunit-bridge": "Lets GrumPHP run your unit tests with the phpunit-bridge of Symfony.",
-                "symplify/easycodingstandard": "Lets GrumPHP check coding standard.",
-                "vimeo/psalm": "Lets GrumPHP discover errors in your code without running it."
+              "squizlabs/php_codesniffer": "Lets GrumPHP sniff on your code.",
+              "sstalle/php7cc": "Lets GrumPHP check PHP 5.3 - 5.6 code compatibility with PHP 7.",
+              "symfony/phpunit-bridge": "Lets GrumPHP run your unit tests with the phpunit-bridge of Symfony.",
+              "symplify/easycodingstandard": "Lets GrumPHP check coding standard.",
+              "vimeo/psalm": "Lets GrumPHP discover errors in your code without running it."
             },
             "bin": [
                 "bin/grumphp"
