@@ -13,11 +13,13 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	fi
 	ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini"
 
-    mkdir -p var/cache var/log
+  mkdir -p var/cache var/log
 
-    if [ "$APP_ENV" != 'prod' ]; then
-        composer install --prefer-dist --no-progress --no-suggest --no-interaction
-    fi
+  if [ "$APP_ENV" != 'prod' ]; then
+      #composer install --prefer-dist --no-progress --no-suggest --no-interaction
+      echo 'DATABASE_URL=mysql://user:user@localhost:3306/numbernine_app?serverVersion=5.7' >> .env.local
+      make install
+  fi
 
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var

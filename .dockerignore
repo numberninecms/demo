@@ -11,12 +11,10 @@
 **/Dockerfile
 **/Thumbs.db
 .editorconfig
-.env*
+.env.local
 .php_cs.cache
 bin/*
 !bin/console
-docker/db/data/
-helm/
 public/bundles/
 var/
 vendor/
