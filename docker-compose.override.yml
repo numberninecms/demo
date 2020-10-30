@@ -11,7 +11,31 @@ services:
         environment:
             APP_ENV: dev
 
+    phpmyadmin:
+        container_name: numbernine_app_phpmyadmin
+        image: phpmyadmin/phpmyadmin:fpm-alpine
+        volumes:
+            - phpmyadmin_data:/var/www/html/
+        environment:
+            - PMA_HOST=mysql
+            - PMA_PORT=3306
+            - PMA_USER=root
+            - PMA_PASSWORD=root
+            - PMA_ARBITRARY=1
+        restart: unless-stopped
+        depends_on:
+            - mysql
+        networks:
+            - numbernine
+
     caddy:
         volumes:
             - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
             - ./public:/srv/app/public:ro
+            - phpmyadmin_data:/var/www/html/:ro
+        depends_on:
+            - mysql
+            - phpmyadmin
+
+volumes:
+    phpmyadmin_data:

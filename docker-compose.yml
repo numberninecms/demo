@@ -1,11 +1,14 @@
 version: "3.8"
 
+networks:
+    numbernine:
+
 services:
     php:
         container_name: numbernine_app_php
         build:
             context: .
-            dockerfile: docker/Dockerfile
+            dockerfile: docker/php/Dockerfile
             target: numbernine_app_php
         restart: unless-stopped
         healthcheck:
@@ -13,26 +16,11 @@ services:
             timeout: 3s
             retries: 3
             start_period: 30s
-
-    caddy:
-        container_name: numbernine_app_caddy
-        build:
-            context: .
-            dockerfile: ./docker/caddy/Dockerfile
-            target: numbernine_app_caddy
-        environment:
-            SERVER_NAME: ${SERVER_NAME:-localhost}
-        restart: unless-stopped
-        ports:
-            - "80:80"
-            - "443:443"
-        depends_on:
-            - php
-        volumes:
-            - caddy_data:/data
-            - caddy_config:/config
+        networks:
+            - numbernine
 
     mysql:
+        container_name: numbernine_app_mysql
         image: mysql:latest
         command: --default-authentication-plugin=mysql_native_password
         environment:
@@ -45,21 +33,26 @@ services:
             - 9906:3306
         volumes:
             - mysql_data:/var/lib/mysql
+        networks:
+            - numbernine
 
-    phpmyadmin:
-        container_name: numbernine_app_phpmyadmin
-        image: phpmyadmin/phpmyadmin:latest
-        ports:
-            - 8100:80
+    caddy:
+        container_name: numbernine_app_caddy
+        build:
+            context: .
+            dockerfile: docker/caddy/Dockerfile
+            target: numbernine_app_caddy
         environment:
-            - PMA_HOST=mysql
-            - PMA_PORT=3306
-            - PMA_USER=root
-            - PMA_PASSWORD=root
-            - PMA_ARBITRARY=1
+            SERVER_NAME: ${SERVER_NAME:-localhost}
         restart: unless-stopped
-        links:
-            - mysql
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - caddy_data:/data
+            - caddy_config:/config
+        networks:
+            - numbernine
         depends_on:
             - mysql
 

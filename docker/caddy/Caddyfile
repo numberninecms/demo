@@ -1,14 +1,16 @@
-{
-    experimental_http3
-}
-
 {$SERVER_NAME}
 
 log
 
+route /phpmyadmin/* {
+    root * /var/www/html
+    php_fastcgi php:9000
+    encode gzip
+    file_server
+}
+
 route {
     root * /srv/app/public
-    push
     php_fastcgi php:9000
     encode gzip
     file_server

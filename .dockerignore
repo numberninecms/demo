@@ -18,3 +18,4 @@ bin/*
 public/bundles/
 var/
 vendor/
+.git/

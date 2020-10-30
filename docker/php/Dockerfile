@@ -1,16 +1,15 @@
-# From https://github.com/dunglas/symfony-docker/blob/master/Dockerfile
-
 ARG PHP_VERSION=7.4
-ARG CADDY_VERSION=2.1.1
 
 FROM kreait/php:${PHP_VERSION}-fpm-dev AS numbernine_app_php
 
-# persistent / runtime deps
 RUN apk add --no-cache \
+        acl \
+        jq \
         php7-exif \
         php7-apcu \
     ;
 
+COPY --from=php:alpine /usr/local/bin/docker-php-* /usr/local/bin/
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
@@ -33,15 +32,10 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/app
 
-COPY php .
-
-RUN echo 'DATABASE_URL=mysql://root@localhost:3306/numbernine_app?serverVersion=5.7' >> .env.local
-RUN make install
+COPY --from=alpine/make:latest /usr/bin/make /usr/bin/make
 
 RUN set -eux; \
-	mkdir -p var/cache var/log; \
-	composer dump-autoload --classmap-authoritative --no-dev; \
-	composer run-script --no-dev post-install-cmd; sync
+	mkdir -p var/cache var/log;
 VOLUME /srv/app/var
 
 COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
@@ -53,12 +47,4 @@ COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 ENTRYPOINT ["docker-entrypoint"]
-CMD ["php-fpm"]
-
-
-FROM caddy:${CADDY_VERSION} AS numbernine_app_caddy
-
-WORKDIR /srv/app
-
-COPY --from=numbernine_app_php /srv/app/public public/
-COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
+CMD ["php-fpm7"]
