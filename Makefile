@@ -158,6 +158,7 @@ purge: ## Purge cache and logs
 	@echo -e "Cache and logs have been deleted !"
 
 docker-install:
+	@echo 'DATABASE_URL=mysql://user:user@mysql:3306/numbernine_app?serverVersion=5.7' > .env.local
 	@$(MAKE) --no-print-director numbernine
 	@docker-compose up -d
 	@$(MAKE) --no-print-director DOCKER=1 install
