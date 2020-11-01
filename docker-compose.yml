@@ -1,112 +1,41 @@
 version: "3.8"
 
 services:
-  php:
-    container_name: numbernine_demo_php
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-      target: numbernine_demo_php
-    healthcheck:
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
-    volumes:
-      # Comment out the next line in production
-      - ./:/srv/app:rw
-      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-      - /srv/app/var/
-      - /srv/app/var/cache/
-      - /srv/app/var/logs/
-      - /srv/app/var/sessions/
-  #
-  #    php:
-  #        container_name: numbernine_demo_php
-  #        build: ./docker/php
-  #        volumes:
-  #            - ./:/var/www/demo:rw,cached
-  #            - ../cms/:/var/www/demo/vendor/numbernine/cms:ro
-  #            - ../faker/:/var/www/demo/vendor/numbernine/faker:ro
-  #            - ../chapterone/:/var/www/demo/vendor/numbernine/chapterone:ro
-  #            - /var/www/demo/var/
-  #            - /var/www/demo/.git/
-  #        tty: true
-  #        working_dir: /var/www/demo
-  #    composer:
-  #        build:
-  #            context: .
-  #            dockerfile: docker/composer/Dockerfile
-  #            target: numbernine_demo_composer
-  #        volumes:
-  #            - ./:/var/www/demo/:rw
-  #            - ../cms/:/var/www/cms/:ro
-  #            - ../faker/:/var/www/faker/:ro
-  #            - ../chapterone/:/var/www/chapterone/:ro
-  mysql:
-    container_name: numbernine_demo_mysql
-    image: mysql:latest
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=user
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=numbernine_demo
-    ports:
-      - 9906:3306
-    volumes:
-      - mysql-data:/var/lib/mysql
-  phpmyadmin:
-    container_name: numbernine_demo_phpmyadmin
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - 8100:80
-    environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=3306
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-      - PMA_ARBITRARY=1
-    restart: always
-    links:
-      - mysql
-    depends_on:
-      - mysql
-  nginx:
-    container_name: numbernine_demo_nginx
-    build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
-      target: numbernine_demo_nginx
-    depends_on:
-      - php
-    volumes:
-      # Comment out the next line in production
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./public:/srv/app/public:ro
-    ports:
-      - "80:80"
-#
-#    nginx:
-#        container_name: numbernine_demo_nginx
-#        build: ./docker/nginx
-#        depends_on:
-#            - php
-#            - mysql
-#        links:
-#            - php
-#        ports:
-#            - 80:80
-#        volumes:
-#            - ./:/var/www/demo/:delegated
-#            - ../cms/:/var/www/demo/vendor/numbernine/cms/:ro
-#            - ../faker/:/var/www/demo/vendor/numbernine/faker/:ro
-#            - ../chapterone/:/var/www/demo/vendor/numbernine/chapterone/:ro
-#            - /var/www/demo/var/
-#            - /var/www/demo/.git/
-#        environment:
-#            - DATABASE_URL=mysql://root:root@mysql:3306/numbernine_demo
-#        tty: true
+    nginx:
+        container_name: ${APP_NAME:-numbernine}_nginx
+        build: docker/nginx
+        ports:
+            - ${NGINX_PORT:-80}:${NGINX_PORT:-80}
+        environment:
+            NGINX_PORT: ${NGINX_PORT:-80}
+            SERVER_NAME: ${SERVER_NAME:-localhost}
+        working_dir: /srv/app
+        volumes:
+            - ./:/srv/app
+
+    php:
+        container_name: ${APP_NAME:-numbernine}_php
+        image: numberninecms/php:7.4-fpm
+        working_dir: /srv/app
+        user: '1000'
+        env_file:
+            - .env
+            - .env.local
+        volumes:
+            - ./:/srv/app
+
+    mysql:
+        container_name: ${APP_NAME:-numbernine}_mysql
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=user
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=numbernine_app
 
 volumes:
-  mysql-data:
+    mysql_data:
