@@ -1,62 +1,41 @@
 version: "3.8"
 
-networks:
-    numbernine:
-
 services:
+    nginx:
+        container_name: ${APP_NAME:-numbernine}_nginx
+        build: docker/nginx
+        ports:
+            - ${NGINX_PORT:-80}:${NGINX_PORT:-80}
+        environment:
+            NGINX_PORT: ${NGINX_PORT:-80}
+            SERVER_NAME: ${SERVER_NAME:-localhost}
+        working_dir: /srv/app
+        volumes:
+            - ./:/srv/app
+
     php:
-        container_name: numbernine_app_php
-        build:
-            context: .
-            dockerfile: docker/php/Dockerfile
-            target: numbernine_app_php
-        restart: unless-stopped
-        healthcheck:
-            interval: 10s
-            timeout: 3s
-            retries: 3
-            start_period: 30s
-        networks:
-            - numbernine
+        container_name: ${APP_NAME:-numbernine}_php
+        image: numberninecms/php:7.4-fpm
+        working_dir: /srv/app
+        user: '1000'
+        env_file:
+            - .env
+            - .env.local
+        volumes:
+            - ./:/srv/app
 
     mysql:
-        container_name: numbernine_app_mysql
+        container_name: ${APP_NAME:-numbernine}_mysql
         image: mysql:latest
         command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        ports:
+            - 3306:3306
         environment:
             - MYSQL_USER=user
             - MYSQL_PASSWORD=user
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=numbernine_app
-        restart: unless-stopped
-        ports:
-            - 9906:3306
-        volumes:
-            - mysql_data:/var/lib/mysql
-        networks:
-            - numbernine
-
-    caddy:
-        container_name: numbernine_app_caddy
-        build:
-            context: .
-            dockerfile: docker/caddy/Dockerfile
-            target: numbernine_app_caddy
-        environment:
-            SERVER_NAME: ${SERVER_NAME:-localhost}
-        restart: unless-stopped
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - caddy_data:/data
-            - caddy_config:/config
-        networks:
-            - numbernine
-        depends_on:
-            - mysql
 
 volumes:
     mysql_data:
-    caddy_data:
-    caddy_config:

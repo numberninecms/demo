@@ -1,5 +1,7 @@
+-include .env.local
 .DEFAULT_GOAL := help
 
+PHP := php
 COMPOSER := composer
 PHPUNIT := php bin/phpunit
 SYMFONY := php bin/console
@@ -7,8 +9,18 @@ SYMFONY_BIN := symfony
 YARN := yarn
 PHPSTAN := vendor/bin/phpstan
 TWIGCS := vendor/bin/twigcs
-DSYMFONY := docker exec numbernine_demo_php $(SYMFONY)
-DCOMPOSER := docker exec numbernine_demo_composer
+APP_NAME ?= numbernine
+DBHOST := $(shell echo "$(DATABASE_URL)" | sed -r -e "s|^(.*\@)([^\/?\#:]+)(.*)$$|\2|g")
+DOCKER ?= 0
+
+ifeq ($(DOCKER), 1)
+#	ifneq ($(DATABASE_URL),)
+#		DATABASE_REPLACE := $(shell echo "$(DATABASE_URL)" | sed -r -e "s|^(.*\@)([^\/?\#:]+)(.*)$$|\1mysql\3|g")
+#		DATABASE_URL := $(DATABASE_REPLACE)
+#	endif
+	PHP := docker exec $(APP_NAME)_php $(PHP)
+	SYMFONY := docker exec $(APP_NAME)_php $(SYMFONY)
+endif
 
 ##
 ##Development tools
@@ -22,12 +34,12 @@ dump-routing: ## Dump routes to Admin project
 db: db-reset fixtures ## Reset database and load fixtures
 
 db-reset: ## Reset database
-	@$(EXEC_PHP) php -r 'echo "Waiting for database...\n"; set_time_limit(30); for(;;) { if(@fsockopen(localhost.":".(3306))) { break; }}'
+	@$(PHP) -r 'echo "Waiting for database...\n"; set_time_limit(30); for(;;) { if(@fsockopen("$(DBHOST):".(3306))) { break; }}'
 	@rm -rf migrations/*.php
-	@-$(SYMFONY) doctrine:database:drop --quiet --if-exists --force
-	@-$(SYMFONY) doctrine:database:create --quiet --if-not-exists
-	@-$(SYMFONY) doctrine:migrations:diff --quiet --no-interaction
-	@-$(SYMFONY) doctrine:migrations:migrate --quiet --no-interaction
+	@$(SYMFONY) doctrine:database:drop --quiet --if-exists --force
+	@$(SYMFONY) doctrine:database:create --quiet --if-not-exists
+	@$(SYMFONY) doctrine:migrations:diff --quiet --no-interaction
+	@$(SYMFONY) doctrine:migrations:migrate --quiet --no-interaction
 
 db-cache: ## Clear doctrine database cache
 	@$(SYMFONY) doctrine:cache:clear-metadata
@@ -83,7 +95,9 @@ vendor: composer.lock ## Install dependencies in /vendor folder
 numbernine: vendor ## Create NumberNine admin symlink and .env.local
 	@$(SYMFONY) numbernine:install --force
 
-install: numbernine db assets ## Install project dependencies
+install: numbernine ## Install project dependencies
+	@$(MAKE) --no-print-director db
+	@$(MAKE) --no-print-director assets
 
 start: install serve ## Install project dependencies and launch symfony web server
 
@@ -143,28 +157,10 @@ purge: ## Purge cache and logs
 	@rm -rf var/cache/* var/log/*
 	@echo -e "Cache and logs have been deleted !"
 
-##
-##Docker
-.PHONY: docker-db docker-db-cache docker-fixtures
-
-docker-db: docker-db-reset docker-fixtures ## Reset database and load fixtures
-
-docker-db-reset: ## Reset database
-	@-$(DSYMFONY) doctrine:database:drop --if-exists --force
-	@-$(DSYMFONY) doctrine:database:create --if-not-exists
-	@$(DSYMFONY) doctrine:schema:update --force
-
-docker-db-cache: ## Clear doctrine database cache
-	@$(DSYMFONY) doctrine:cache:clear-metadata
-	@$(DSYMFONY) doctrine:cache:clear-query
-	@$(DSYMFONY) doctrine:cache:clear-result
-	@echo "Cleared doctrine cache"
-
-docker-fixtures: ## Load fixtures
-	@$(DSYMFONY) doctrine:fixtures:load --no-interaction
-
-docker-cc: ## Clear and warmup cache
-	@$(DSYMFONY) cache:clear
+docker-install:
+	@$(MAKE) --no-print-director numbernine
+	@docker-compose up -d
+	@$(MAKE) --no-print-director DOCKER=1 install
 
 ##
 ##Help

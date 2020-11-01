@@ -29,6 +29,9 @@
     "bluemoehre/flac-php": {
         "version": "v1.0.2"
     },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -182,6 +185,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.8.0"
+    },
+    "ondram/ci-detector": {
+        "version": "3.5.1"
     },
     "opis/closure": {
         "version": "3.6.0"
