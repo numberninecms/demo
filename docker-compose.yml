@@ -9,7 +9,7 @@ services:
         environment:
             NGINX_PORT: ${NGINX_PORT:-80}
             SERVER_NAME: ${SERVER_NAME:-localhost}
-            PHP_SERVICE: ${PHP_SERVICE:-php}'
+            PHP_SERVICE: ${PHP_SERVICE:-php}
         restart: always
         working_dir: /srv/app
         volumes:
