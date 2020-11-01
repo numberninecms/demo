@@ -9,7 +9,8 @@ services:
         environment:
             NGINX_PORT: ${NGINX_PORT:-80}
             SERVER_NAME: ${SERVER_NAME:-localhost}
-            PHP_SERVICE: ${PHP_SERVICE:-php}
+            PHP_SERVICE: ${PHP_SERVICE:-php}'
+        restart: always
         working_dir: /srv/app
         volumes:
             - ./:/srv/app
@@ -19,6 +20,7 @@ services:
         image: numberninecms/php:7.4-fpm
         working_dir: /srv/app
         user: '1000'
+        restart: always
         env_file:
             - .env
             - .env.local
@@ -37,6 +39,8 @@ services:
             - MYSQL_PASSWORD=user
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=numbernine_app
+        volumes:
+            - mysql_data:/var/lib/mysql
 
 volumes:
     mysql_data:
