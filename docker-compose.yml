@@ -48,8 +48,9 @@ services:
     redis:
         container_name: ${APP_NAME:-numbernine}_redis
         image: redis:alpine
+        restart: always
         ports:
-            - 6379
+            - ${REDIS_PORT:-6379}
 
 volumes:
     mysql_data:
