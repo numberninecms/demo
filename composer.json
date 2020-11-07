@@ -7,9 +7,10 @@
         "php": "^7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "numberninecms/cms": "dev-develop",
         "numberninecms/chapterone": "dev-develop",
+        "numberninecms/cms": "dev-develop",
         "numberninecms/faker": "dev-develop",
+        "numberninecms/redis": "dev-develop",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.1.*",
@@ -93,5 +94,15 @@
             "require": "5.1.*"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../*",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
