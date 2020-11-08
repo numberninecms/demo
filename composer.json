@@ -7,8 +7,8 @@
         "php": "^7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "numberninecms/cms": "dev-develop",
         "numberninecms/chapterone": "dev-develop",
+        "numberninecms/cms": "dev-develop",
         "numberninecms/faker": "dev-develop",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
@@ -93,5 +93,6 @@
             "require": "5.1.*"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

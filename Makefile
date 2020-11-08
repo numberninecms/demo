@@ -1,25 +1,23 @@
+-include .env
 -include .env.local
 .DEFAULT_GOAL := help
 
-PHP := php
-COMPOSER := composer
-PHPUNIT := php bin/phpunit
-SYMFONY := php bin/console
-SYMFONY_BIN := symfony
-YARN := yarn
-PHPSTAN := vendor/bin/phpstan
-TWIGCS := vendor/bin/twigcs
+PHP = php
+COMPOSER = composer
+PHPUNIT = $(PHP) bin/phpunit
+SYMFONY = $(PHP) bin/console
+SYMFONY_BIN = symfony
+YARN = yarn
+PHPSTAN = vendor/bin/phpstan
+TWIGCS = vendor/bin/twigcs
 APP_NAME ?= numbernine
-DBHOST := $(shell echo "$(DATABASE_URL)" | sed -r -e "s|^(.*\@)([^\/?\#:]+)(.*)$$|\2|g")
+DBHOST = $(shell echo "$(DATABASE_URL)" | sed -r -e "s|^(.*\@)([^\/?\#:]+)(.*)$$|\2|g")
 DOCKER ?= 0
+CURDIR_NAME = $(notdir $(CURDIR))
 
 ifeq ($(DOCKER), 1)
-#	ifneq ($(DATABASE_URL),)
-#		DATABASE_REPLACE := $(shell echo "$(DATABASE_URL)" | sed -r -e "s|^(.*\@)([^\/?\#:]+)(.*)$$|\1mysql\3|g")
-#		DATABASE_URL := $(DATABASE_REPLACE)
-#	endif
-	PHP := docker exec $(APP_NAME)_php $(PHP)
-	SYMFONY := docker exec $(APP_NAME)_php $(SYMFONY)
+	PHP = docker run --rm -it -u '1000:1000' -v $(CURDIR):/srv/app --network $(CURDIR_NAME)_default -w /srv/app numberninecms/php:7.4-fpm-dev php
+	COMPOSER = docker run --rm -it -u '1000:1000' -v $(CURDIR):/srv/app --network $(CURDIR_NAME)_default -w /srv/app numberninecms/php:7.4-fpm-dev composer
 endif
 
 ##
@@ -93,11 +91,21 @@ vendor: composer.lock ## Install dependencies in /vendor folder
 .PHONY: numbernine install start update cache-clear cache-warmup clean reset
 
 numbernine: vendor ## Create NumberNine admin symlink and .env.local
-	@$(SYMFONY) numbernine:install --force
+ifeq ($(DOCKER), 1)
+	@$(COMPOSER) req numberninecms/redis:dev-develop
+endif
+	@$(SYMFONY) numbernine:install
+	@$(SYMFONY) numbernine:install --sub-commands-only
 
 install: numbernine ## Install project dependencies
 	@$(MAKE) --no-print-director db
 	@$(MAKE) --no-print-director assets
+	@$(MAKE) --no-print-director cc
+
+install-db: ## Install database and assets
+	@$(MAKE) --no-print-director db
+	@$(MAKE) --no-print-director assets
+	@$(MAKE) --no-print-director cc
 
 start: install serve ## Install project dependencies and launch symfony web server
 
@@ -159,9 +167,10 @@ purge: ## Purge cache and logs
 
 docker-install:
 	@echo 'DATABASE_URL=mysql://user:user@mysql:3306/numbernine_app?serverVersion=5.7' > .env.local
-	@$(MAKE) --no-print-director numbernine
+	@echo 'REDIS_URL=redis://redis:6379' >> .env.local
+	@$(MAKE) --no-print-director DOCKER=1 numbernine
 	@docker-compose up -d
-	@$(MAKE) --no-print-director DOCKER=1 install
+	@$(MAKE) --no-print-director DOCKER=1 install-db
 
 ##
 ##Help

@@ -177,7 +177,13 @@
     "numberninecms/cms": {
         "version": "dev-develop"
     },
+    "numberninecms/common": {
+        "version": "dev-develop"
+    },
     "numberninecms/faker": {
+        "version": "dev-develop"
+    },
+    "numberninecms/redis": {
         "version": "dev-develop"
     },
     "ocramius/package-versions": {

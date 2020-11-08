@@ -24,6 +24,9 @@ services:
         env_file:
             - .env
             - .env.local
+        environment:
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
         volumes:
             - ./:/srv/app
 
@@ -41,6 +44,13 @@ services:
             - MYSQL_DATABASE=numbernine_app
         volumes:
             - mysql_data:/var/lib/mysql
+
+    redis:
+        container_name: ${APP_NAME:-numbernine}_redis
+        image: redis:alpine
+        restart: always
+        ports:
+            - ${REDIS_PORT:-6379}
 
 volumes:
     mysql_data:
