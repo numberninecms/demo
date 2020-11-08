@@ -10,7 +10,6 @@
         "numberninecms/chapterone": "dev-develop",
         "numberninecms/cms": "dev-develop",
         "numberninecms/faker": "dev-develop",
-        "numberninecms/redis": "dev-develop",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.1.*",
@@ -95,14 +94,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../*",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
+    "prefer-stable": true
 }
