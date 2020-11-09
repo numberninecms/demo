@@ -8,12 +8,15 @@ PHPUNIT = $(PHP) bin/phpunit
 SYMFONY = $(PHP) bin/console
 SYMFONY_BIN = symfony
 YARN = yarn
+OPENSSL = openssl
 PHPSTAN = vendor/bin/phpstan
 TWIGCS = vendor/bin/twigcs
 APP_NAME ?= numbernine
 DBHOST = $(shell echo "$(DATABASE_URL)" | sed -r -e "s|^(.*\@)([^\/?\#:]+)(.*)$$|\2|g")
 DOCKER ?= 0
 CURDIR_NAME = $(notdir $(CURDIR))
+SERVER_NAME = localhost
+DATABASE_NAME = numbernine_app
 
 ifeq ($(DOCKER), 1)
 	PHP = docker run --rm -it -u '1000:1000' -v $(CURDIR):/srv/app --network $(CURDIR_NAME)_default -w /srv/app numberninecms/php:7.4-fpm-dev php
@@ -88,7 +91,7 @@ vendor: composer.lock ## Install dependencies in /vendor folder
 
 ##
 ##Project
-.PHONY: numbernine install start update cache-clear cache-warmup clean reset
+.PHONY: numbernine install install-db cert start update cache-clear cache-warmup clean reset
 
 numbernine: vendor ## Create NumberNine admin symlink and .env.local
 ifeq ($(DOCKER), 1)
@@ -128,6 +131,9 @@ clean: purge ## Delete all dependencies
 
 reset: unserve clean install
 
+cert:
+	@mkdir -p ./docker/nginx/cert
+	@$(OPENSSL) req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=$(SERVER_NAME)" -keyout ./docker/nginx/cert/$(SERVER_NAME).key  -out ./docker/nginx/cert/$(SERVER_NAME).crt
 
 ##
 ##Local server
@@ -146,7 +152,7 @@ security: vendor ## Check packages vulnerabilities (using composer.lock)
 
 ##
 ##Tests
-.PHONY: tests
+.PHONY: tests phpstan twigcs
 
 tests: vendor ## Run tests
 	@$(PHPUNIT)
@@ -159,14 +165,14 @@ twigcs:
 
 ##
 ##Utils
-.PHONY: purge
+.PHONY: purge docker-install
 
 purge: ## Purge cache and logs
 	@rm -rf var/cache/* var/log/*
 	@echo -e "Cache and logs have been deleted !"
 
-docker-install:
-	@echo 'DATABASE_URL=mysql://user:user@mysql:3306/numbernine_app?serverVersion=5.7' > .env.local
+docker-install: cert
+	@echo 'DATABASE_URL=mysql://user:user@mysql:3306/$(DATABASE_NAME)?serverVersion=5.7' > .env.local
 	@echo 'REDIS_URL=redis://redis:6379' >> .env.local
 	@$(MAKE) --no-print-director DOCKER=1 numbernine
 	@docker-compose up -d
