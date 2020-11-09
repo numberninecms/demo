@@ -25,4 +25,6 @@ yarn-error.log
 ###> numbernine ###
 /public/admin
 /public/uploads
+/docker/nginx/cert
+docker-compose.override.yml
 ###< numbernine ###
