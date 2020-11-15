@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+    numbernine_builder:
+        build:
+            dockerfile: docker/prod/Dockerfile
+            context: .
+        image: numberninecms/demo-app:latest

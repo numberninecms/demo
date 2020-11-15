@@ -1,0 +1,38 @@
+os: linux
+dist: bionic
+language: php
+
+services:
+    - docker
+
+php:
+    - 7.4
+
+env:
+    - COMPOSER_VERSION=2
+
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+
+jobs:
+    include:
+        -
+            stage: test
+            install:
+                - composer install --no-interaction
+            script:
+                - ./vendor/bin/grumphp run --no-interaction
+        -
+            stage: deploy
+            env:
+                - APP_ENV=prod
+            install:
+                - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
+            before_script:
+                - composer dump-autoload --classmap-authoritative --no-dev
+                - composer run-script --no-dev post-install-cmd
+                - ln -s ./bundles/numbernine/admin ./public/admin
+                - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
+            script:
+                - docker-compose -f docker-compose.build.yml build numbernine_builder
