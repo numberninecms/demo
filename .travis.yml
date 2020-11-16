@@ -13,6 +13,7 @@ env:
 
 cache:
     directories:
+        - $HOME/bin
         - $HOME/.composer/cache/files
 
 jobs:
@@ -23,10 +24,24 @@ jobs:
                 - composer install --no-interaction
             script:
                 - ./vendor/bin/grumphp run --no-interaction
+
         -
-            stage: deploy
+            stage: deploy_docker_digitalocean
+            if: |
+                env(DEPLOY_DOCKER_DIGITALOCEAN) = true AND \
+                env(DIGITALOCEAN_REGISTRY) IS present AND \
+                env(DIGITALOCEAN_IMAGE) IS present AND \
+                env(DIGITALOCEAN_TOKEN) IS present AND \
+                branch = master AND \
+                type = push
             env:
                 - APP_ENV=prod
+            before_install:
+                - wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
+                - tar xf $HOME/doctl-1.50.0-linux-amd64.tar.gz
+                - mkdir $HOME/bin
+                - mv $HOME/doctl $HOME/bin/
+                - export PATH=$HOME/bin:$PATH
             install:
                 - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
             before_script:
@@ -34,5 +49,9 @@ jobs:
                 - composer run-script --no-dev post-install-cmd
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
+                - doctl auth init -t $DIGITALOCEAN_TOKEN
+                - doctl registry login
             script:
                 - docker-compose -f docker-compose.build.yml build numbernine_builder
+                - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
+                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
