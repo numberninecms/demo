@@ -129,6 +129,15 @@
     "egulias/email-validator": {
         "version": "2.1.17"
     },
+    "ergebnis/composer-normalize": {
+        "version": "2.11.0"
+    },
+    "ergebnis/json-normalizer": {
+        "version": "0.14.0"
+    },
+    "ergebnis/json-printer": {
+        "version": "3.1.1"
+    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "2.3",
         "recipe": {
@@ -140,6 +149,9 @@
         "files": [
             "./config/routes/fos_js_routing.yaml"
         ]
+    },
+    "friendsoftwig/twigcs": {
+        "version": "v4.0.0"
     },
     "fzaninotto/faker": {
         "version": "v1.9.1"
@@ -153,6 +165,9 @@
     "imagine/imagine": {
         "version": "1.2.3"
     },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -162,11 +177,17 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.4"
     },
+    "localheinz/diff": {
+        "version": "1.1.1"
+    },
     "monolog/monolog": {
         "version": "2.1.0"
     },
     "mpratt/relativetime": {
         "version": "1.5.5"
+    },
+    "myclabs/deep-copy": {
+        "version": "1.10.2"
     },
     "nikic/php-parser": {
         "version": "v4.4.0"
@@ -198,8 +219,17 @@
     "opis/closure": {
         "version": "3.6.0"
     },
+    "phar-io/manifest": {
+        "version": "2.0.1"
+    },
+    "phar-io/version": {
+        "version": "3.0.2"
+    },
     "php": {
         "version": "7.4"
+    },
+    "php-parallel-lint/php-parallel-lint": {
+        "version": "v1.2.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.1.0"
@@ -213,6 +243,9 @@
     "phpro/grumphp": {
         "version": "v0.18.0"
     },
+    "phpspec/prophecy": {
+        "version": "1.12.1"
+    },
     "phpstan/phpstan": {
         "version": "0.12.25"
     },
@@ -224,6 +257,35 @@
     },
     "phpstan/phpstan-symfony": {
         "version": "0.12.6"
+    },
+    "phpunit/php-code-coverage": {
+        "version": "9.2.3"
+    },
+    "phpunit/php-file-iterator": {
+        "version": "3.0.5"
+    },
+    "phpunit/php-invoker": {
+        "version": "3.1.1"
+    },
+    "phpunit/php-text-template": {
+        "version": "2.0.4"
+    },
+    "phpunit/php-timer": {
+        "version": "5.0.3"
+    },
+    "phpunit/phpunit": {
+        "version": "4.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.7",
+            "ref": "477e1387616f39505ba79715f43f124836020d71"
+        },
+        "files": [
+            ".env.test",
+            "phpunit.xml.dist",
+            "tests/bootstrap.php"
+        ]
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -246,6 +308,54 @@
     "scienta/doctrine-json-functions": {
         "version": "4.1.2"
     },
+    "sebastian/cli-parser": {
+        "version": "1.0.1"
+    },
+    "sebastian/code-unit": {
+        "version": "1.0.8"
+    },
+    "sebastian/code-unit-reverse-lookup": {
+        "version": "2.0.3"
+    },
+    "sebastian/comparator": {
+        "version": "4.0.6"
+    },
+    "sebastian/complexity": {
+        "version": "2.0.2"
+    },
+    "sebastian/diff": {
+        "version": "4.0.4"
+    },
+    "sebastian/environment": {
+        "version": "5.1.3"
+    },
+    "sebastian/exporter": {
+        "version": "4.0.3"
+    },
+    "sebastian/global-state": {
+        "version": "5.0.2"
+    },
+    "sebastian/lines-of-code": {
+        "version": "1.0.2"
+    },
+    "sebastian/object-enumerator": {
+        "version": "4.0.4"
+    },
+    "sebastian/object-reflector": {
+        "version": "2.0.4"
+    },
+    "sebastian/recursion-context": {
+        "version": "4.0.4"
+    },
+    "sebastian/resource-operations": {
+        "version": "3.0-dev"
+    },
+    "sebastian/type": {
+        "version": "2.3.1"
+    },
+    "sebastian/version": {
+        "version": "3.0.2"
+    },
     "seld/jsonlint": {
         "version": "1.8.0"
     },
@@ -259,6 +369,18 @@
         },
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "stof/doctrine-extensions-bundle": {
@@ -294,9 +416,6 @@
     "symfony/asset": {
         "version": "v5.0.8"
     },
-    "symfony/browser-kit": {
-        "version": "v5.0.8"
-    },
     "symfony/cache": {
         "version": "v5.0.8"
     },
@@ -317,9 +436,6 @@
         "files": [
             "./bin/console"
         ]
-    },
-    "symfony/css-selector": {
-        "version": "v5.0.8"
     },
     "symfony/debug-bundle": {
         "version": "4.1",
@@ -343,9 +459,6 @@
         "version": "v2.1.0"
     },
     "symfony/doctrine-bridge": {
-        "version": "v5.0.8"
-    },
-    "symfony/dom-crawler": {
         "version": "v5.0.8"
     },
     "symfony/dotenv": {
@@ -479,21 +592,6 @@
     "symfony/orm-pack": {
         "version": "v1.0.8"
     },
-    "symfony/phpunit-bridge": {
-        "version": "4.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.3",
-            "ref": "6d0e35f749d5f4bfe1f011762875275cd3f9874f"
-        },
-        "files": [
-            "./.env.test",
-            "./bin/phpunit",
-            "./phpunit.xml.dist",
-            "./tests/bootstrap.php"
-        ]
-    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.17.0"
     },
@@ -582,9 +680,6 @@
     },
     "symfony/string": {
         "version": "v5.0.8"
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.6"
     },
     "symfony/translation": {
         "version": "3.3",
@@ -682,6 +777,9 @@
     },
     "symfony/yaml": {
         "version": "v5.0.8"
+    },
+    "theseer/tokenizer": {
+        "version": "1.2.0"
     },
     "thunderer/shortcode": {
         "version": "v0.7.4"
