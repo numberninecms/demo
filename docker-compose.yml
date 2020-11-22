@@ -3,7 +3,7 @@ version: "3.8"
 services:
     nginx:
         container_name: ${APP_NAME:-numbernine}_nginx
-        build: docker/nginx
+        image: nginx:alpine
         ports:
             - ${NGINX_PORT:-443}:443
         environment:
@@ -13,9 +13,7 @@ services:
         restart: always
         working_dir: /srv/app
         volumes:
-            - ./docker/nginx/cert/localhost.crt:/etc/ssl/certs/localhost.crt
-            - ./docker/nginx/cert/localhost.key:/etc/ssl/private/localhost.key
-            - ./:/srv/app
+            - ./docker/nginx/templates:/etc/nginx/templates
 
     php:
         container_name: ${APP_NAME:-numbernine}_php
@@ -24,13 +22,10 @@ services:
         user: '1000'
         restart: always
         env_file:
-            - .env
             - .env.local
         environment:
             REDIS_HOST: redis
             REDIS_PORT: 6379
-        volumes:
-            - ./:/srv/app
 
     mysql:
         container_name: ${APP_NAME:-numbernine}_mysql
@@ -39,11 +34,6 @@ services:
         restart: always
         ports:
             - 3306:3306
-        environment:
-            - MYSQL_USER=user
-            - MYSQL_PASSWORD=user
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=numbernine_app
         volumes:
             - mysql_data:/var/lib/mysql
 
@@ -56,3 +46,5 @@ services:
 
 volumes:
     mysql_data:
+    app_files:
+    app_var:

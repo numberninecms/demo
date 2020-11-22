@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+    numbernine:
+        image: numberninecms/demo-app:latest
+        environment:
+            APP_ENV: prod
+            APP_NAME: numbernine
+            DATABASE_URL: mysql://user:user@mysql:3306/numbernine_app?serverVersion=5.7
+            REDIS_URL: redis://redis:6379
+        volumes:
+            - app_files:/srv/app
+            - app_var:/srv/app/var
+
+    nginx:
+        volumes:
+            - app_files:/srv/app
+            - app_var:/srv/app/var
+
+    php:
+        env_file:
+            - .env.prod
+        volumes:
+            - app_files:/srv/app
+            - app_var:/srv/app/var
+
+volumes:
+    app_files:
+    app_var:

@@ -1,7 +1,7 @@
 {
     "name": "numberninecms/demo",
-    "description": "Demo project for testing NumberNine CMS",
     "type": "project",
+    "description": "Demo project for testing NumberNine CMS",
     "license": "MIT",
     "require": {
         "php": "^7.4.0",
@@ -35,23 +35,46 @@
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*"
     },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php56": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.11",
+        "friendsoftwig/twigcs": "^4.0",
+        "nikic/php-parser": "^4.10",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpro/grumphp": "^1.0.0",
         "phpstan/phpstan": "^0.12.51",
         "phpstan/phpstan-doctrine": "^0.12.13",
         "phpstan/phpstan-phpunit": "^0.12.8",
         "phpstan/phpstan-symfony": "^0.12.6",
+        "phpunit/phpunit": "^9.4",
         "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.5",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
-        "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
+        "symfony/profiler-pack": "*"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
         "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.1.*"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -63,36 +86,18 @@
             "App\\Tests\\": "tests/"
         }
     },
-    "replace": {
-        "paragonie/random_compat": "2.*",
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
         "post-install-cmd": [
             "@auto-scripts"
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false,
-            "require": "5.1.*"
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
