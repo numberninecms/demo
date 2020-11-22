@@ -3,7 +3,7 @@ version: "3.8"
 services:
     nginx:
         container_name: ${APP_NAME:-numbernine}_nginx
-        build: docker/nginx
+        image: nginx:alpine
         ports:
             - ${NGINX_PORT:-443}:443
         environment:
@@ -12,6 +12,8 @@ services:
             PHP_SERVICE: ${PHP_SERVICE:-php}
         restart: always
         working_dir: /srv/app
+        volumes:
+            - ./docker/nginx/templates:/etc/nginx/templates
 
     php:
         container_name: ${APP_NAME:-numbernine}_php

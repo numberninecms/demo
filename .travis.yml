@@ -8,9 +8,6 @@ services:
 php:
     - 7.4
 
-env:
-    - COMPOSER_VERSION=2
-
 cache:
     directories:
         - $HOME/bin
@@ -20,6 +17,8 @@ jobs:
     include:
         -
             stage: test
+            env:
+                - COMPOSER_VERSION=2
             install:
                 - composer install --no-interaction
             script:
@@ -32,15 +31,17 @@ jobs:
                 env(DIGITALOCEAN_REGISTRY) IS present AND \
                 env(DIGITALOCEAN_IMAGE) IS present AND \
                 env(DIGITALOCEAN_TOKEN) IS present AND \
-                branch = master AND \
-                type = push
+                tag IS present
             env:
-                - APP_ENV=prod
+                - COMPOSER_VERSION=2 APP_ENV=prod
             before_install:
-                - wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
-                - tar xf $HOME/doctl-1.50.0-linux-amd64.tar.gz
-                - mkdir $HOME/bin
-                - mv $HOME/doctl $HOME/bin/
+                - |
+                    if [ ! -f "$HOME/bin/doctl" ]; then
+                        wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
+                        tar xf $HOME/doctl-1.50.0-linux-amd64.tar.gz
+                        mkdir $HOME/bin
+                        mv $HOME/doctl $HOME/bin/
+                    fi
                 - export PATH=$HOME/bin:$PATH
             install:
                 - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
@@ -55,3 +56,13 @@ jobs:
                 - docker-compose -f docker-compose.build.yml build numbernine_builder
                 - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
                 - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
+            notifications:
+                webhooks:
+                    if: env(DEPLOY_WEBHOOK) IS present
+                    urls:
+                        - $DEPLOY_WEBHOOK
+                    on_success: always
+                    on_failure: never
+                    on_start: never
+                    on_cancel: never
+                    on_error: never
