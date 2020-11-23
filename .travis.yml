@@ -38,9 +38,10 @@ jobs:
                 - |
                     if [ ! -f "$HOME/bin/doctl" ]; then
                         wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
-                        tar xf $HOME/doctl-1.50.0-linux-amd64.tar.gz
-                        mkdir $HOME/bin
-                        mv $HOME/doctl $HOME/bin/
+                        tar xf doctl-1.50.0-linux-amd64.tar.gz
+                        rm doctl-1.50.0-linux-amd64.tar.gz
+                        mkdir -p $HOME/bin
+                        mv doctl $HOME/bin/
                     fi
                 - export PATH=$HOME/bin:$PATH
             install:
@@ -51,11 +52,11 @@ jobs:
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
                 - doctl auth init -t $DIGITALOCEAN_TOKEN
-                - doctl registry login
+                - doctl registry login --expiry-seconds 1200
             script:
-                - docker-compose -f docker-compose.build.yml build numbernine_builder
-                - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
-                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
+                - docker build -t numberninecms/demo-app:latest -f ./docker/prod/Dockerfile . >/dev/null 2>&1
+                - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE >/dev/null 2>&1
+                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE >/dev/null 2>&1
             notifications:
                 webhooks:
                     if: env(DEPLOY_WEBHOOK) IS present
