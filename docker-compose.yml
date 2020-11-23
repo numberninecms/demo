@@ -50,6 +50,7 @@ services:
         env_file:
             - .env.local
         volumes:
+            - ./docker/php/symfony.ini:/usr/local/etc/php/conf.d/symfony.ini
             - app_files:/srv/app
             - app_var:/srv/app/var
 
