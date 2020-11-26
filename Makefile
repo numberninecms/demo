@@ -41,7 +41,7 @@ install: ## Create database, load fixtures, update files to the latest
 	doctl auth init
 	doctl registry login --expiry-seconds 300
 	docker pull $(DOCKER_IMAGE)
-	docker run --rm -i -v $(CURDIR_NAME)_app_files:/tmp/app $(DOCKER_IMAGE) sh -c 'rsync -aq --exclude="public/uploads" --exclude="migrations" --exclude="var" --exclude= --delete-after ./ /tmp/app/'
+	docker run --rm -i -v $(CURDIR_NAME)_app_files:/tmp/app $(DOCKER_IMAGE) sh -c 'rsync -aq --exclude "/public/uploads" --exclude "/migrations" --exclude "/var" --exclude= --delete-after ./ /tmp/app/'
 	docker run --rm -i -v $(CURDIR_NAME)_app_files:/tmp/app $(DOCKER_IMAGE) chown -R '1000:1000' /tmp/app/
 	@make db-reset --no-print-director
 	@make cc --no-print-director
@@ -55,7 +55,7 @@ deploy: ## Deploy new files and update database schema
 	doctl auth init
 	doctl registry login --expiry-seconds 300
 	docker pull $(DOCKER_IMAGE)
-	docker run --rm -i -v $(CURDIR_NAME)_app_files:/tmp/app $(DOCKER_IMAGE) sh -c 'rsync -aq --exclude="public/uploads/*" --exclude="migrations/*" --exclude="var" --exclude= --delete-after ./ /tmp/app/'
+	docker run --rm -i -v $(CURDIR_NAME)_app_files:/tmp/app $(DOCKER_IMAGE) sh -c 'rsync -aq --exclude "/public/uploads" --exclude "/migrations" --exclude "/var" --exclude= --delete-after ./ /tmp/app/'
 	docker run --rm -i -v $(CURDIR_NAME)_app_files:/tmp/app $(DOCKER_IMAGE) chown -R '1000:1000' /tmp/app/
 	@make db-migrate --no-print-director
 	@make cc --no-print-director
