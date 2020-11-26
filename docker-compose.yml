@@ -1,81 +1,62 @@
 version: "3.8"
 
-# Environment variables to add to your server's .env.local file:
-#
-# APP_SECRET=<randomstring>
-# APP_ENV=prod
-# APP_NAME=<name_of_your_app_snake_case>
-# SERVER_NAME=<your.domain.com>
-# MYSQL_USER=<mysql_user>
-# MYSQL_PASSWORD=<mysql_password>
-# MYSQL_ROOT_PASSWORD=<mysql_root_password>
-# MYSQL_DATABASE=<db_name>
-# DATABASE_URL=mysql://<mysql_user>:<mysql_password>@mysql:3306/<db_name>?serverVersion=5.7
-# REDIS_URL=redis://redis:6379
-
 services:
     app:
-        container_name: ${APP_NAME:-numbernine}_app_files
-        image: numberninecms/demo-app:latest # Change this with your image name
-        env_file:
-            - .env.local
+        container_name: numbernine_demo_app_files
+        image: repo/image:tag # Change this with your app image
+        command: chown -R '1000:1000' .
         volumes:
             - app_files:/srv/app
-            - app_var:/srv/app/var
 
     nginx:
-        container_name: ${APP_NAME:-numbernine}_nginx
+        container_name: numbernine_demo_nginx
         image: nginx:alpine
         ports:
-            - ${NGINX_PORT:-443}:443
-        environment:
-            NGINX_PORT: ${NGINX_PORT:-443}
-            SERVER_NAME: ${SERVER_NAME:-localhost}
-            PHP_SERVICE: ${PHP_SERVICE:-php}
+            - 10000:443
         restart: always
         working_dir: /srv/app
-        env_file:
-            - .env.local
         volumes:
-            - ./docker/nginx/templates:/etc/nginx/templates
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
             - app_files:/srv/app
-            - app_var:/srv/app/var
+            - ./.env:/srv/app/.env
+            - /etc/letsencrypt:/etc/letsencrypt
 
     php:
-        container_name: ${APP_NAME:-numbernine}_php
+        container_name: numbernine_demo_php
         image: numberninecms/php:7.4-fpm
+        user: '1000:1000'
         working_dir: /srv/app
-        user: '1000'
         restart: always
         env_file:
             - .env.local
         volumes:
-            - ./docker/php/symfony.ini:/usr/local/etc/php/conf.d/symfony.ini
             - app_files:/srv/app
-            - app_var:/srv/app/var
+            - ./docker/php/symfony.ini:/usr/local/etc/php/conf.d/symfony.ini
 
     mysql:
-        container_name: ${APP_NAME:-numbernine}_mysql
+        container_name: numbernine_demo_mysql
         image: mysql:8
+        user: '1000:1000'
         command: --default-authentication-plugin=mysql_native_password
         restart: always
-        env_file:
-            - .env.local
+        environment:
+            MYSQL_USER: numbernine_demo_staging
+            MYSQL_PASSWORD: tP6pC7zsJhQeOgNDzxkzJRul3vVVko6D7VGNAnLt1kOON0W2ig
+            MYSQL_ROOT_PASSWORD: tvyNSB2uZlnQxRv14xFDW7bPz2JpTLobj0HN5a8JsT0kvm4ORI
+            MYSQL_DATABASE: numbernine_demo_staging
         ports:
-            - 3306:3306
+            - 5556:3306
         volumes:
             - mysql_data:/var/lib/mysql
 
     redis:
-        container_name: ${APP_NAME:-numbernine}_redis
+        container_name: numbernine_demo_redis
         image: redis:alpine
+        user: '1000:1000'
         restart: always
-        env_file:
-            - .env.local
-        ports:
-            - ${REDIS_PORT:-6379}
 
 volumes:
     mysql_data:
     app_files:
-    app_var:
+
