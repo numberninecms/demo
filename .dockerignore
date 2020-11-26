@@ -35,3 +35,4 @@ webpack.config.js
 assets/
 LICENSE
 package.json
+phpcs.xml.dist
