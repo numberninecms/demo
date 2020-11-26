@@ -38,9 +38,10 @@ jobs:
                 - |
                     if [ ! -f "$HOME/bin/doctl" ]; then
                         wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
-                        tar xf $HOME/doctl-1.50.0-linux-amd64.tar.gz
-                        mkdir $HOME/bin
-                        mv $HOME/doctl $HOME/bin/
+                        tar xf doctl-1.50.0-linux-amd64.tar.gz
+                        rm doctl-1.50.0-linux-amd64.tar.gz
+                        mkdir -p $HOME/bin
+                        mv doctl $HOME/bin/
                     fi
                 - export PATH=$HOME/bin:$PATH
             install:
@@ -51,16 +52,60 @@ jobs:
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
                 - doctl auth init -t $DIGITALOCEAN_TOKEN
-                - doctl registry login
+                - doctl registry login --expiry-seconds 1200
             script:
-                - docker-compose -f docker-compose.build.yml build numbernine_builder
-                - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
-                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE
+                - docker build -t numberninecms/demo-app:latest -f ./docker/prod/Dockerfile . >/dev/null 2>&1
+                - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE >/dev/null 2>&1
+                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE >/dev/null 2>&1
             notifications:
                 webhooks:
                     if: env(DEPLOY_WEBHOOK) IS present
                     urls:
                         - $DEPLOY_WEBHOOK
+                    on_success: always
+                    on_failure: never
+                    on_start: never
+                    on_cancel: never
+                    on_error: never
+
+        -
+            stage: staging_docker_digitalocean
+            if: |
+                env(STAGING_DOCKER_DIGITALOCEAN) = true AND \
+                env(DIGITALOCEAN_REGISTRY_STAGING) IS present AND \
+                env(DIGITALOCEAN_IMAGE_STAGING) IS present AND \
+                env(DIGITALOCEAN_TOKEN) IS present AND \
+                branch =~ /^release\/.*$/
+            env:
+                - COMPOSER_VERSION=2 APP_ENV=prod
+            before_install:
+                - |
+                    if [ ! -f "$HOME/bin/doctl" ]; then
+                        wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
+                        tar xf doctl-1.50.0-linux-amd64.tar.gz
+                        rm doctl-1.50.0-linux-amd64.tar.gz
+                        mkdir -p $HOME/bin
+                        mv doctl $HOME/bin/
+                    fi
+                - export PATH=$HOME/bin:$PATH
+            install:
+                - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
+            before_script:
+                - composer dump-autoload --classmap-authoritative --no-dev
+                - composer run-script --no-dev post-install-cmd
+                - ln -s ./bundles/numbernine/admin ./public/admin
+                - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
+                - doctl auth init -t $DIGITALOCEAN_TOKEN
+                - doctl registry login --expiry-seconds 1200
+            script:
+                - docker build -t numberninecms/demo-app:staging -f ./docker/prod/Dockerfile . >/dev/null 2>&1
+                - docker tag numberninecms/demo-app:staging registry.digitalocean.com/$DIGITALOCEAN_REGISTRY_STAGING/$DIGITALOCEAN_IMAGE_STAGING >/dev/null 2>&1
+                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY_STAGING/$DIGITALOCEAN_IMAGE_STAGING >/dev/null 2>&1
+            notifications:
+                webhooks:
+                    if: env(STAGING_WEBHOOK) IS present
+                    urls:
+                        - $STAGING_WEBHOOK
                     on_success: always
                     on_failure: never
                     on_start: never

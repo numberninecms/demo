@@ -11,13 +11,12 @@
 **/Dockerfile
 **/Thumbs.db
 .editorconfig
-.env
 .env.local
 .env.test
 .php_cs.cache
 bin/*
 !bin/console
-public/uploads/
+public/uploads/*
 public/.htaccess
 var/cache/*
 var/log/*
@@ -36,3 +35,4 @@ webpack.config.js
 assets/
 LICENSE
 package.json
+phpcs.xml.dist
