@@ -27,7 +27,7 @@ services:
         container_name: ${APP_NAME:-numbernine}_php
         image: numberninecms/php:7.4-fpm-dev
         working_dir: /srv/app
-        user: '1000'
+        user: '1000:1000'
         restart: always
         env_file:
             - .env
@@ -41,6 +41,7 @@ services:
             - ./:/srv/app
             - ./docker/php/xdebug.ini:/etc/php7/conf.d/xdebug.ini
             - ./docker/php/blackfire.ini:/etc/php7/conf.d/blackfire.ini
+            - ./docker/php/symfony.ini:/etc/php7/conf.d/symfony.ini
             - ../:/srv/app/vendor/numberninecms
         links:
             - blackfire
