@@ -32,7 +32,7 @@ services:
             - .env.local
         volumes:
             - app_files:/srv/app
-            - ./docker/php/symfony.ini:/usr/local/etc/php/conf.d/symfony.ini
+            - ./docker/php/symfony.ini:/etc/php7/conf.d/symfony.ini
 
     mysql:
         container_name: numbernine_demo_mysql
