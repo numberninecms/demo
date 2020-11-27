@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae75ca74c39fd5ff48fe1fd28296b037",
+    "content-hash": "c37213e4b9b8ca772bf2fba7f837fbc2",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2912,6 +2912,55 @@
                 "source": "https://github.com/numberninecms/faker/tree/develop"
             },
             "time": "2020-11-07T16:00:59+00:00"
+        },
+        {
+            "name": "numberninecms/redis",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/numberninecms/redis.git",
+                "reference": "34b654404e4ab8edf5711f5b7fb3417bee7baeb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/numberninecms/redis/zipball/34b654404e4ab8edf5711f5b7fb3417bee7baeb0",
+                "reference": "34b654404e4ab8edf5711f5b7fb3417bee7baeb0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-redis": "*",
+                "numberninecms/common": "dev-develop",
+                "php": "^7.4",
+                "symfony/config": "^5.1",
+                "symfony/console": "^5.1",
+                "symfony/dependency-injection": "^5.1",
+                "symfony/yaml": "^5.1"
+            },
+            "require-dev": {
+                "roave/security-advisories": "dev-latest"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NumberNine\\RedisBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Arin",
+                    "email": "williamarin.dev@gmail.com"
+                }
+            ],
+            "description": "Installation wizard and auto-configuration for Redis cache and sessions with NumberNine CMS",
+            "support": {
+                "issues": "https://github.com/numberninecms/redis/issues",
+                "source": "https://github.com/numberninecms/redis/tree/develop"
+            },
+            "time": "2020-11-07T18:19:02+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -14443,6 +14492,7 @@
         "numberninecms/chapterone": 20,
         "numberninecms/cms": 20,
         "numberninecms/faker": 20,
+        "numberninecms/redis": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
