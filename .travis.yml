@@ -13,6 +13,9 @@ cache:
         - $HOME/bin
         - $HOME/.composer/cache/files
 
+before_install:
+    - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
 jobs:
     include:
         -
