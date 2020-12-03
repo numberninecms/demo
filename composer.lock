@@ -2599,16 +2599,16 @@
         },
         {
             "name": "numberninecms/cms",
-            "version": "0.1.6",
+            "version": "0.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/numberninecms/cms.git",
-                "reference": "a8eb800d2b1c72fce7c802fa9983751955d2c7da"
+                "reference": "42d31427e46bf83465c21a32cdb6d3f945b02a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/numberninecms/cms/zipball/a8eb800d2b1c72fce7c802fa9983751955d2c7da",
-                "reference": "a8eb800d2b1c72fce7c802fa9983751955d2c7da",
+                "url": "https://api.github.com/repos/numberninecms/cms/zipball/42d31427e46bf83465c21a32cdb6d3f945b02a56",
+                "reference": "42d31427e46bf83465c21a32cdb6d3f945b02a56",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2642,6 +2642,7 @@
                 "symfony/framework-bundle": "^5.1",
                 "symfony/http-kernel": "^5.1",
                 "symfony/mime": "^5.1",
+                "symfony/process": "^5.1",
                 "symfony/security-bundle": "^5.1",
                 "symfony/security-core": "^5.1",
                 "symfony/security-csrf": "^5.1",
@@ -2663,9 +2664,11 @@
                 "wapmorgan/media-file": "^0.1.4"
             },
             "require-dev": {
+                "dama/doctrine-test-bundle": "^6.4",
                 "ergebnis/composer-normalize": "^2.11",
                 "friendsoftwig/twigcs": ">=4",
                 "nikic/php-parser": "^4.10",
+                "numberninecms/chapterone": "^0.1",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
                 "phpro/grumphp": "^1.0",
                 "phpstan/phpstan": "^0.12.25",
@@ -2674,7 +2677,12 @@
                 "phpstan/phpstan-symfony": "^0.12.6",
                 "phpunit/phpunit": "^9.2",
                 "roave/security-advisories": "dev-master",
-                "squizlabs/php_codesniffer": "^3.5"
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/browser-kit": "^5.2",
+                "symfony/css-selector": "^5.2"
+            },
+            "suggest": {
+                "numberninecms/chapterone": "Startup theme for NumberNine CMS"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2704,22 +2712,22 @@
             ],
             "support": {
                 "issues": "https://github.com/numberninecms/cms/issues",
-                "source": "https://github.com/numberninecms/cms/tree/0.1.6"
+                "source": "https://github.com/numberninecms/cms/tree/0.1.7"
             },
-            "time": "2020-12-01T12:08:50+00:00"
+            "time": "2020-12-03T16:38:35+00:00"
         },
         {
             "name": "numberninecms/common",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/numberninecms/common.git",
-                "reference": "1eaea091463a479f21e6faa0ee9ce43fce7a20ae"
+                "reference": "73062095437eef2f46faf711cc7583dd5356dde3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/numberninecms/common/zipball/1eaea091463a479f21e6faa0ee9ce43fce7a20ae",
-                "reference": "1eaea091463a479f21e6faa0ee9ce43fce7a20ae",
+                "url": "https://api.github.com/repos/numberninecms/common/zipball/73062095437eef2f46faf711cc7583dd5356dde3",
+                "reference": "73062095437eef2f46faf711cc7583dd5356dde3",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2777,9 +2785,9 @@
             "description": "Shared infrastructure among NumberNine ecosystem",
             "support": {
                 "issues": "https://github.com/numberninecms/common/issues",
-                "source": "https://github.com/numberninecms/common/tree/0.1.4"
+                "source": "https://github.com/numberninecms/common/tree/0.1.5"
             },
-            "time": "2020-11-30T18:04:57+00:00"
+            "time": "2020-12-03T15:06:11+00:00"
         },
         {
             "name": "numberninecms/faker",
@@ -3786,16 +3794,16 @@
         },
         {
             "name": "symfony-cmf/routing-bundle",
-            "version": "2.4.1",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony-cmf/routing-bundle.git",
-                "reference": "b97512ea80a03ce2ce81b825f8a21fc5ddf576ed"
+                "reference": "0d5d4e96db39f0e625d95a2b77503c59cd1ad6f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony-cmf/routing-bundle/zipball/b97512ea80a03ce2ce81b825f8a21fc5ddf576ed",
-                "reference": "b97512ea80a03ce2ce81b825f8a21fc5ddf576ed",
+                "url": "https://api.github.com/repos/symfony-cmf/routing-bundle/zipball/0d5d4e96db39f0e625d95a2b77503c59cd1ad6f9",
+                "reference": "0d5d4e96db39f0e625d95a2b77503c59cd1ad6f9",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3805,7 +3813,7 @@
                 ]
             },
             "require": {
-                "php": "^7.2",
+                "php": "^7.2 || ^8.0",
                 "symfony-cmf/routing": "^2.3.0",
                 "symfony/framework-bundle": "^4.4 || ^5.0",
                 "twig/twig": "^2.4.4 || ^3.0"
@@ -3869,9 +3877,9 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony-cmf/routing-bundle/issues",
-                "source": "https://github.com/symfony-cmf/routing-bundle/tree/2.4.1"
+                "source": "https://github.com/symfony-cmf/routing-bundle/tree/2.4.2"
             },
-            "time": "2020-10-23T11:42:28+00:00"
+            "time": "2020-12-03T07:37:36+00:00"
         },
         {
             "name": "symfony/apache-pack",
@@ -5172,16 +5180,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.10.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "e38520236bdc911c2f219634b485bc328746e980"
+                "reference": "ceb2b4e612bd0b4bb36a4d7fb2e800c861652f48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/e38520236bdc911c2f219634b485bc328746e980",
-                "reference": "e38520236bdc911c2f219634b485bc328746e980",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/ceb2b4e612bd0b4bb36a4d7fb2e800c861652f48",
+                "reference": "ceb2b4e612bd0b4bb36a4d7fb2e800c861652f48",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -5197,6 +5205,7 @@
             "require-dev": {
                 "composer/composer": "^1.0.2|^2.0",
                 "symfony/dotenv": "^4.4|^5.0",
+                "symfony/filesystem": "^4.4|^5.0",
                 "symfony/phpunit-bridge": "^4.4|^5.0",
                 "symfony/process": "^3.4|^4.4|^5.0"
             },
@@ -5225,7 +5234,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.10.0"
+                "source": "https://github.com/symfony/flex/tree/v1.11.0"
             },
             "funding": [
                 {
@@ -5241,7 +5250,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-05T10:56:45+00:00"
+            "time": "2020-12-03T10:57:35+00:00"
         },
         {
             "name": "symfony/form",
@@ -12661,12 +12670,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6aaf24c946b1f2689b85f0b3a62d30534d9aa1e4"
+                "reference": "676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6aaf24c946b1f2689b85f0b3a62d30534d9aa1e4",
-                "reference": "6aaf24c946b1f2689b85f0b3a62d30534d9aa1e4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6",
+                "reference": "676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -12702,7 +12711,7 @@
                 "composer/composer": "<=1-alpha.11",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/core": ">=2,<3.5.39",
-                "contao/core-bundle": "= 4.10.0|>=4,<4.4.52|>=4.5,<4.9.6",
+                "contao/core-bundle": ">=4,<4.4.52|>=4.5,<4.9.6|= 4.10.0",
                 "contao/listing-bundle": ">=4,<4.4.8",
                 "datadog/dd-trace": ">=0.30,<0.30.2",
                 "david-garcia/phpwhois": "<=4.3.1",
@@ -12979,7 +12988,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-01T13:02:08+00:00"
+            "time": "2020-12-02T06:02:50+00:00"
         },
         {
             "name": "sebastian/cli-parser",
