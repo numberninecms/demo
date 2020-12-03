@@ -13,15 +13,14 @@ cache:
         - $HOME/bin
         - $HOME/.composer/cache/files
 
-before_install:
-    - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-
 jobs:
     include:
         -
             stage: test
             env:
                 - COMPOSER_VERSION=2
+            before_install:
+                - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             install:
                 - composer install --no-interaction
             script:
@@ -47,6 +46,7 @@ jobs:
                         mv doctl $HOME/bin/
                     fi
                 - export PATH=$HOME/bin:$PATH
+                - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             install:
                 - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
             before_script:
@@ -91,6 +91,7 @@ jobs:
                         mv doctl $HOME/bin/
                     fi
                 - export PATH=$HOME/bin:$PATH
+                - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             install:
                 - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
             before_script:
