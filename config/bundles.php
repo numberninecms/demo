@@ -20,4 +20,5 @@ return [
     NumberNine\Bundle\NumberNineBundle::class => ['all' => true],
     NumberNine\ChapterOne\NumberNineChapterOneBundle::class => ['all' => true],
     NumberNine\FakerBundle\NumberNineFakerBundle::class => ['all' => true],
+    NumberNine\RedisBundle\NumberNineRedisBundle::class => ['all' => true],
 ];

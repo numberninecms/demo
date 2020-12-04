@@ -1,3 +1,8 @@
+#
+# This file builds a development environment only.
+# For production environment, checkout the branch `production`.
+#
+
 version: "3.8"
 
 services:
@@ -14,18 +19,31 @@ services:
         working_dir: /srv/app
         volumes:
             - ./docker/nginx/templates:/etc/nginx/templates
+            - ./docker/nginx/cert/localhost.crt:/etc/ssl/certs/localhost.crt
+            - ./docker/nginx/cert/localhost.key:/etc/ssl/private/localhost.key
+            - ./:/srv/app
 
     php:
         container_name: ${APP_NAME:-numbernine}_php
-        image: numberninecms/php:7.4-fpm
+        image: numberninecms/php:7.4-fpm-dev
         working_dir: /srv/app
-        user: '1000'
+        user: '1000:1000'
         restart: always
         env_file:
+            - .env
             - .env.local
         environment:
+            BLACKFIRE_CLIENT_ID: ~
+            BLACKFIRE_CLIENT_TOKEN: ~
             REDIS_HOST: redis
             REDIS_PORT: 6379
+        volumes:
+            - ./:/srv/app
+            - ./docker/php/xdebug.ini:/etc/php7/conf.d/xdebug.ini
+            - ./docker/php/blackfire.ini:/etc/php7/conf.d/blackfire.ini
+            - ./docker/php/symfony.ini:/etc/php7/conf.d/symfony.ini
+        links:
+            - blackfire
 
     mysql:
         container_name: ${APP_NAME:-numbernine}_mysql
@@ -34,6 +52,11 @@ services:
         restart: always
         ports:
             - 3306:3306
+        environment:
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=user
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=numbernine_app
         volumes:
             - mysql_data:/var/lib/mysql
 
@@ -42,9 +65,20 @@ services:
         image: redis:alpine
         restart: always
         ports:
-            - ${REDIS_PORT:-6379}
+            - ${REDIS_PORT:-6379}:6379
+
+    blackfire:
+        container_name: ${APP_NAME:-numbernine}_blackfire
+        image: blackfire/blackfire
+        restart: always
+        ports:
+            - 8707:8707
+        environment:
+            BLACKFIRE_CLIENT_ID: ~
+            BLACKFIRE_CLIENT_TOKEN: ~
+            BLACKFIRE_SERVER_ID: ~
+            BLACKFIRE_SERVER_TOKEN: ~
 
 volumes:
     mysql_data:
     app_files:
-    app_var:
