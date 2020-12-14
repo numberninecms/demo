@@ -1,9 +1,6 @@
 os: linux
-dist: bionic
+dist: focal
 language: php
-
-services:
-    - docker
 
 php:
     - 7.4
@@ -17,8 +14,6 @@ jobs:
     include:
         -
             stage: test
-            env:
-                - COMPOSER_VERSION=2
             before_install:
                 - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             install:
@@ -35,7 +30,7 @@ jobs:
                 env(DIGITALOCEAN_TOKEN) IS present AND \
                 tag IS present
             env:
-                - COMPOSER_VERSION=2 APP_ENV=prod
+                - APP_ENV=prod
             before_install:
                 - |
                     if [ ! -f "$HOME/bin/doctl" ]; then
@@ -80,7 +75,7 @@ jobs:
                 env(DIGITALOCEAN_TOKEN) IS present AND \
                 branch =~ /^release\/.*$/
             env:
-                - COMPOSER_VERSION=2 APP_ENV=prod
+                - APP_ENV=prod
             before_install:
                 - |
                     if [ ! -f "$HOME/bin/doctl" ]; then
