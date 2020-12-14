@@ -38,7 +38,8 @@ jobs:
             script:
                 - docker build -t $DOCKER_REPO_PREFIX/demo-app:latest -f ./docker/prod/Dockerfile .
                 - docker tag $DOCKER_REPO_PREFIX/demo-app:latest $DOCKER_REPO_PREFIX/demo-app:$TRAVIS_TAG
-                - docker push --all-tags $DOCKER_REPO_PREFIX/demo-app
+                - docker push $DOCKER_REPO_PREFIX/demo-app:latest
+                - docker push $DOCKER_REPO_PREFIX/demo-app:$TRAVIS_TAG
             notifications:
                 webhooks:
                     if: env(DEPLOY_WEBHOOK) IS present
@@ -66,7 +67,8 @@ jobs:
             script:
                 - docker build -t $DOCKER_REPO_PREFIX/demo-app:staging -f ./docker/prod/Dockerfile .
                 - docker tag $DOCKER_REPO_PREFIX/demo-app:staging $DOCKER_REPO_PREFIX/demo-app:staging-$TRAVIS_TAG
-                - docker push --all-tags $DOCKER_REPO_PREFIX/demo-app
+                - docker push $DOCKER_REPO_PREFIX/demo-app:staging
+                - docker push $DOCKER_REPO_PREFIX/demo-app:staging-$TRAVIS_TAG
             notifications:
                 webhooks:
                     if: env(STAGING_WEBHOOK) IS present
