@@ -34,11 +34,12 @@ jobs:
                 - composer run-script --no-dev post-install-cmd
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
-                - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             script:
                 - docker build -t $DOCKER_REPO_PREFIX/demo-app:latest -f ./docker/prod/Dockerfile .
                 - docker tag $DOCKER_REPO_PREFIX/demo-app:latest $DOCKER_REPO_PREFIX/demo-app:$TRAVIS_TAG
-                - docker push --all-tags $DOCKER_REPO_PREFIX/demo-app
+                - docker push $DOCKER_REPO_PREFIX/demo-app:latest
+                - docker push $DOCKER_REPO_PREFIX/demo-app:$TRAVIS_TAG
             notifications:
                 webhooks:
                     if: env(DEPLOY_WEBHOOK) IS present
@@ -62,11 +63,12 @@ jobs:
                 - composer run-script --no-dev post-install-cmd
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
-                - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             script:
                 - docker build -t $DOCKER_REPO_PREFIX/demo-app:staging -f ./docker/prod/Dockerfile .
                 - docker tag $DOCKER_REPO_PREFIX/demo-app:staging $DOCKER_REPO_PREFIX/demo-app:staging-$TRAVIS_TAG
-                - docker push --all-tags $DOCKER_REPO_PREFIX/demo-app
+                - docker push $DOCKER_REPO_PREFIX/demo-app:staging
+                - docker push $DOCKER_REPO_PREFIX/demo-app:staging-$TRAVIS_TAG
             notifications:
                 webhooks:
                     if: env(STAGING_WEBHOOK) IS present
