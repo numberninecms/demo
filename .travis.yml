@@ -1,9 +1,6 @@
 os: linux
-dist: bionic
+dist: focal
 language: php
-
-services:
-    - docker
 
 php:
     - 7.4
@@ -13,40 +10,23 @@ cache:
         - $HOME/bin
         - $HOME/.composer/cache/files
 
+before_install:
+    - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
 jobs:
     include:
         -
             stage: test
-            env:
-                - COMPOSER_VERSION=2
-            before_install:
-                - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             install:
                 - composer install --no-interaction
             script:
                 - ./vendor/bin/grumphp run --no-interaction
 
         -
-            stage: deploy_docker_digitalocean
-            if: |
-                env(DEPLOY_DOCKER_DIGITALOCEAN) = true AND \
-                env(DIGITALOCEAN_REGISTRY) IS present AND \
-                env(DIGITALOCEAN_IMAGE) IS present AND \
-                env(DIGITALOCEAN_TOKEN) IS present AND \
-                tag IS present
+            stage: deploy_dockerhub
+            if: tag IS present
             env:
-                - COMPOSER_VERSION=2 APP_ENV=prod
-            before_install:
-                - |
-                    if [ ! -f "$HOME/bin/doctl" ]; then
-                        wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
-                        tar xf doctl-1.50.0-linux-amd64.tar.gz
-                        rm doctl-1.50.0-linux-amd64.tar.gz
-                        mkdir -p $HOME/bin
-                        mv doctl $HOME/bin/
-                    fi
-                - export PATH=$HOME/bin:$PATH
-                - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+                - APP_ENV=prod
             install:
                 - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
             before_script:
@@ -54,12 +34,12 @@ jobs:
                 - composer run-script --no-dev post-install-cmd
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
-                - doctl auth init -t $DIGITALOCEAN_TOKEN
-                - doctl registry login --expiry-seconds 1200
+                - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             script:
-                - docker build -t numberninecms/demo-app:latest -f ./docker/prod/Dockerfile . >/dev/null 2>&1
-                - docker tag numberninecms/demo-app:latest registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE >/dev/null 2>&1
-                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY/$DIGITALOCEAN_IMAGE >/dev/null 2>&1
+                - docker build -t $DOCKER_REPO_PREFIX/demo-app:latest -f ./docker/prod/Dockerfile .
+                - docker tag $DOCKER_REPO_PREFIX/demo-app:latest $DOCKER_REPO_PREFIX/demo-app:$TRAVIS_TAG
+                - docker push $DOCKER_REPO_PREFIX/demo-app:latest
+                - docker push $DOCKER_REPO_PREFIX/demo-app:$TRAVIS_TAG
             notifications:
                 webhooks:
                     if: env(DEPLOY_WEBHOOK) IS present
@@ -72,26 +52,10 @@ jobs:
                     on_error: never
 
         -
-            stage: staging_docker_digitalocean
-            if: |
-                env(STAGING_DOCKER_DIGITALOCEAN) = true AND \
-                env(DIGITALOCEAN_REGISTRY_STAGING) IS present AND \
-                env(DIGITALOCEAN_IMAGE_STAGING) IS present AND \
-                env(DIGITALOCEAN_TOKEN) IS present AND \
-                branch =~ /^release\/.*$/
+            stage: staging_dockerhub
+            if: branch =~ /^release\/.*$/
             env:
-                - COMPOSER_VERSION=2 APP_ENV=prod
-            before_install:
-                - |
-                    if [ ! -f "$HOME/bin/doctl" ]; then
-                        wget https://github.com/digitalocean/doctl/releases/download/v1.50.0/doctl-1.50.0-linux-amd64.tar.gz
-                        tar xf doctl-1.50.0-linux-amd64.tar.gz
-                        rm doctl-1.50.0-linux-amd64.tar.gz
-                        mkdir -p $HOME/bin
-                        mv doctl $HOME/bin/
-                    fi
-                - export PATH=$HOME/bin:$PATH
-                - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+                - APP_ENV=prod
             install:
                 - composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
             before_script:
@@ -99,12 +63,12 @@ jobs:
                 - composer run-script --no-dev post-install-cmd
                 - ln -s ./bundles/numbernine/admin ./public/admin
                 - echo "APP_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 50 ; echo '')" >> .env.prod
-                - doctl auth init -t $DIGITALOCEAN_TOKEN
-                - doctl registry login --expiry-seconds 1200
+                - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             script:
-                - docker build -t numberninecms/demo-app:staging -f ./docker/prod/Dockerfile . >/dev/null 2>&1
-                - docker tag numberninecms/demo-app:staging registry.digitalocean.com/$DIGITALOCEAN_REGISTRY_STAGING/$DIGITALOCEAN_IMAGE_STAGING >/dev/null 2>&1
-                - docker push registry.digitalocean.com/$DIGITALOCEAN_REGISTRY_STAGING/$DIGITALOCEAN_IMAGE_STAGING >/dev/null 2>&1
+                - docker build -t $DOCKER_REPO_PREFIX/demo-app:staging -f ./docker/prod/Dockerfile .
+                - docker tag $DOCKER_REPO_PREFIX/demo-app:staging $DOCKER_REPO_PREFIX/demo-app:staging-$TRAVIS_TAG
+                - docker push $DOCKER_REPO_PREFIX/demo-app:staging
+                - docker push $DOCKER_REPO_PREFIX/demo-app:staging-$TRAVIS_TAG
             notifications:
                 webhooks:
                     if: env(STAGING_WEBHOOK) IS present
