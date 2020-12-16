@@ -15,7 +15,6 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use NumberNine\DataFixtures\BaseFixture;
-use NumberNine\DataFixtures\FixtureSettings;
 use NumberNine\Entity\ContentEntityTerm;
 use NumberNine\Entity\Post;
 use NumberNine\Entity\Term;

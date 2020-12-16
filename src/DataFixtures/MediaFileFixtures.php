@@ -16,7 +16,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Generator;
 use NumberNine\DataFixtures\BaseFixture;
-use NumberNine\DataFixtures\FixtureSettings;
 use NumberNine\Entity\MediaFile;
 use NumberNine\Entity\Post;
 use NumberNine\Model\Content\PublishingStatusInterface;
