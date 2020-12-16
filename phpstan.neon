@@ -7,6 +7,8 @@ parameters:
     level: 8
     paths:
         - src
+    excludes_analyse:
+        - src/DataFixtures
     symfony:
         container_xml_path: 'var/cache/dev/App_KernelDevDebugContainer.xml'
     checkGenericClassInNonGenericObjectType: false
