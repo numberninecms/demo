@@ -138,6 +138,9 @@
     "fakerphp/faker": {
         "version": "v1.12.0"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.0"
+    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "2.3",
         "recipe": {
@@ -206,9 +209,6 @@
     },
     "ocramius/package-versions": {
         "version": "1.8.0"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.8.0"
     },
     "ondram/ci-detector": {
         "version": "3.5.1"
@@ -625,6 +625,9 @@
     "symfony/property-info": {
         "version": "v5.0.8"
     },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.2.1"
+    },
     "symfony/routing": {
         "version": "5.1",
         "recipe": {
@@ -798,9 +801,6 @@
     },
     "wapmorgan/mp3info": {
         "version": "0.0.5"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.0.1"
     },
     "webmozart/assert": {
         "version": "1.8.0"
