@@ -16,7 +16,6 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use NumberNine\DataFixtures\BaseFixture;
-use NumberNine\DataFixtures\UserFixtures;
 use NumberNine\Entity\Post;
 use NumberNine\Entity\User;
 use NumberNine\Model\Content\PublishingStatusInterface;
