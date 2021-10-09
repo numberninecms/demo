@@ -1,0 +1,57 @@
+#
+# This file builds a development environment only.
+#
+
+version: "3.8"
+
+services:
+    nginx:
+        image: nginx:alpine
+        ports:
+            - 8080:443
+        restart: 'no'
+        working_dir: /srv/app
+        volumes:
+            - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/cert/demo.localhost.crt:/etc/ssl/certs/demo.localhost.crt
+            - ./docker/nginx/cert/demo.localhost.key:/etc/ssl/private/demo.localhost.key
+            - ./:/srv/app
+
+    php:
+        image: numberninecms/php:8.1-fpm-dev
+        working_dir: /srv/app
+        user: '1000:1000'
+        restart: 'no'
+        env_file:
+            - .env
+            - .env.local
+        volumes:
+            - ./:/srv/app
+            - ./docker/php/xdebug.ini:/etc/php8/conf.d/50_xdebug.ini
+            - ./docker/php/symfony.ini:/etc/php8/conf.d/100_symfony.ini
+
+    mysql:
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        restart: 'no'
+        environment:
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=user
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=numbernine_app
+        volumes:
+            - mysql_data:/var/lib/mysql
+
+    redis:
+        image: redis:alpine
+        restart: 'no'
+
+    maildev:
+        image: maildev/maildev
+        command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+        ports:
+            - 8010:80
+        restart: 'no'
+
+volumes:
+    mysql_data:
