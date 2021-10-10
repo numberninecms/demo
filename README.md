@@ -1,5 +1,9 @@
 ![NumberNine Logo](./assets/images/NumberNine512_slogan.png)
 
+<br>
+
+[![Github Workflow](https://github.com/numberninecms/demo/workflows/CI/badge.svg)](https://github.com/numberninecms/demo/actions)
+
 # NumberNine CMS demo website
 
 This is a demo website for testing NumberNine CMS.
