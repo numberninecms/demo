@@ -20,7 +20,7 @@ dependencies:
 	@echo "\n\033[33mProject dependencies\n--------------------\033[0m\n"
 	@echo "Launching Docker containers..."
 	@docker-compose up -d $(SYSTEMQUIET)
-	@echo "Installing dependencies..."
+	@echo "Installing composer dependencies..."
 	@docker-compose run --rm php composer install $(QUIET)
 
 .PHONY: reset
