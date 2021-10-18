@@ -11,8 +11,8 @@ on:
             - '**'
 
 jobs:
-    install:
-        name: Install project
+    test_install:
+        name: Test project installation
 
         runs-on: ubuntu-20.04
 
@@ -69,6 +69,11 @@ jobs:
 
             -   name: Install project
                 run: make install VERBOSE=1
+
+            -   name: Build assets
+                run: |
+                    yarn install
+                    yarn build
 
             -   name: Check that website is up and running
                 run: wget --spider --no-check-certificate https://demo.localhost:8080/

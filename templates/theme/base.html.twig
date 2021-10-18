@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="generator" content="NumberNine"/>
+    {% block head %}
+        {{ N9_head() }}
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body class="{{ N9_dispatch('BodyClasses')|join(' ') }}">
+{% block header %}
+    <header>
+        {% include 'partials/countdown_banner.html.twig' %}
+        {{ N9_area('header') }}
+    </header>
+{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+    {{ N9_component('Footer/Footer') }}
+    {{ N9_footer() }}
+{% endblock %}
+</body>
+</html>
