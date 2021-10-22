@@ -127,6 +127,7 @@ jobs:
             -   name: Install Composer dependencies
                 run: |
                     echo "APP_ENV=prod" > .env
+                    echo "LOCK_DSN=semaphore" >> .env
                     echo "APP_SECRET=$(openssl rand -base64 48)" >> .env
                     echo "APP_NAME=numbernine_demo" >> .env
                     echo "DATABASE_URL=mysql://user:user@mysql:3306/numbernine_demo?serverVersion=8.0" >> .env

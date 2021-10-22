@@ -18,7 +18,7 @@ return [
     Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
-    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['all' => true],
     NumberNine\Bundle\NumberNineBundle::class => ['all' => true],
     NumberNine\ChapterOne\NumberNineChapterOneBundle::class => ['all' => true],
     NumberNine\RedisBundle\NumberNineRedisBundle::class => ['all' => true],
