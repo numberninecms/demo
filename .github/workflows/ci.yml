@@ -9,6 +9,8 @@ on:
     pull_request:
         branches:
             - '**'
+    schedule:
+        - cron: '0 23 * * 6' # Once a week at 23:00 on Saturday
 
 jobs:
     test_install:
@@ -60,6 +62,7 @@ jobs:
                     echo "DATABASE_URL=mysql://user:user@mysql:3306/numbernine_app?serverVersion=8.0" >> .env.local
                     echo "REDIS_URL=redis://redis:6379" >> .env.local
                     echo "MAILER_DSN=smtp://maildev:25" >> .env.local
+                    rm composer.lock
 
             -   name: Give Docker container write rights
                 run: yq e -I4 -n ".version = \"3.8\" | .services.php.user = \"$(id -u):$(id -g)\"" > docker-compose.override.yml
@@ -77,3 +80,85 @@ jobs:
 
             -   name: Check that website is up and running
                 run: wget --spider --no-check-certificate https://demo.localhost:8080/
+
+    build:
+        name: Build and deploy
+
+        needs: test_install
+
+        if: github.ref == 'refs/heads/master'
+
+        runs-on: ubuntu-20.04
+
+        strategy:
+            matrix:
+                php: [ '8.1' ]
+
+        steps:
+            -   uses: FranzDiebold/github-env-vars-action@v2
+
+            -   uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                id: setup-php
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: dom, curl, libxml, mbstring, zip
+                    tools: composer:v2
+                    coverage: none
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: Validate composer.json and composer.lock
+                run: composer validate
+
+            -   name: Get composer cache directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
+            -   name: Install Composer dependencies
+                run: |
+                    echo "APP_ENV=prod" > .env
+                    echo "APP_SECRET=$(openssl rand -base64 48)" >> .env
+                    echo "APP_NAME=numbernine_demo" >> .env
+                    echo "DATABASE_URL=mysql://user:user@mysql:3306/numbernine_demo?serverVersion=8.0" >> .env
+                    echo "REDIS_URL=redis://redis:6379" >> .env
+                    echo "MAILER_DSN=" >> .env
+                    rm composer.lock
+                    composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
+                    composer dump-autoload --classmap-authoritative --no-dev
+                    composer run-script --no-dev post-install-cmd
+
+            -   name: Build assets
+                run: |
+                    yarn install
+                    yarn build
+
+            -   name: Build Docker image
+                run: |
+                    docker build --no-cache -t ${{ secrets.DOCKER_REPO }}-php:latest -f ./docker/Dockerfile --target app_php .
+                    docker build --no-cache -t ${{ secrets.DOCKER_REPO }}-nginx:latest -f ./docker/Dockerfile --target app_nginx .
+
+            -   name: Push Docker image
+                run: |
+                    echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+                    docker push --all-tags ${{ secrets.DOCKER_REPO }}-php
+                    docker push --all-tags ${{ secrets.DOCKER_REPO }}-nginx
+
+            -   name: Deploy
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.SSH_HOST }}
+                    username: ${{ secrets.SSH_USERNAME }}
+                    key: ${{ secrets.SSH_KEY }}
+                    passphrase: ${{ secrets.SSH_PASSPHRASE }}
+                    port: ${{ secrets.SSH_PORT }}
+                    script: ${{ secrets.SSH_COMMAND }}
