@@ -20,6 +20,7 @@ use NumberNine\DataFixtures\BaseFixture;
 use NumberNine\Entity\Comment;
 use NumberNine\Entity\Post;
 use NumberNine\Entity\User;
+use NumberNine\Model\Content\CommentStatusInterface;
 
 final class CommentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {
@@ -32,11 +33,17 @@ final class CommentFixtures extends BaseFixture implements DependentFixtureInter
 
     public function loadData(ObjectManager $manager): void
     {
+        $status = [
+            CommentStatusInterface::COMMENT_STATUS_PENDING,
+            CommentStatusInterface::COMMENT_STATUS_APPROVED,
+        ];
+
         $this->createMany(
             Comment::class,
             FixtureSettings::POSTS_COUNT * 3,
-            function (Comment $comment, $i) {
+            function (Comment $comment, $i) use ($status) {
                 $comment
+                    ->setStatus($status[random_int(0, 1)])
                     ->setContent($this->faker->text)
                     ->setContentEntity($this->getReference(Post::class . '_post_' . (int)floor($i / 3)))
                     ->setAuthor($this->getRandomReference(User::class));
