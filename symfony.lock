@@ -118,6 +118,9 @@
     "ergebnis/json-printer": {
         "version": "3.1.1"
     },
+    "ergebnis/json-schema-validator": {
+        "version": "2.0.0"
+    },
     "fakerphp/faker": {
         "version": "v1.16.0"
     },
