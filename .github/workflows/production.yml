@@ -1,0 +1,62 @@
+name: Staging
+
+on:
+    push:
+        tags:
+            - '**'
+
+jobs:
+    build:
+        name: Deploy to production
+
+        runs-on: ubuntu-20.04
+
+        strategy:
+            matrix:
+                php: [ '8.1' ]
+
+        steps:
+            -   uses: FranzDiebold/github-env-vars-action@v2
+
+            -   uses: actions/checkout@v2
+
+            -   name: Set major tag name
+                run: echo "TAG_MAJOR=$(echo $CI_REF_NAME | cut -d. -f1)" >> $GITHUB_ENV
+
+            -   name: Set major tag name
+                run: echo "TAG_MINOR=${{ env.TAG_MAJOR }}.$(echo $CI_REF_NAME | cut -d. -f2)" >> $GITHUB_ENV
+
+            -   name: Login to registry
+                run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+            -   name: Pull staging images
+                run: |
+                    docker pull ${{ secrets.DOCKER_REPO }}-php:staging
+                    docker pull ${{ secrets.DOCKER_REPO }}-nginx:staging
+
+            -   name: Add production tags to staging image
+                run: |
+                    docker tag ${{ secrets.DOCKER_REPO }}-php:staging ${{ secrets.DOCKER_REPO }}-php:latest
+                    docker tag ${{ secrets.DOCKER_REPO }}-php:staging ${{ secrets.DOCKER_REPO }}-php:$CI_REF_NAME
+                    docker tag ${{ secrets.DOCKER_REPO }}-php:staging ${{ secrets.DOCKER_REPO }}-php:${{ env.TAG_MAJOR }}
+                    docker tag ${{ secrets.DOCKER_REPO }}-php:staging ${{ secrets.DOCKER_REPO }}-php:${{ env.TAG_MINOR }}
+                    
+                    docker tag ${{ secrets.DOCKER_REPO }}-nginx:staging ${{ secrets.DOCKER_REPO }}-nginx:latest
+                    docker tag ${{ secrets.DOCKER_REPO }}-nginx:staging ${{ secrets.DOCKER_REPO }}-nginx:$CI_REF_NAME
+                    docker tag ${{ secrets.DOCKER_REPO }}-nginx:staging ${{ secrets.DOCKER_REPO }}-nginx:${{ env.TAG_MAJOR }}
+                    docker tag ${{ secrets.DOCKER_REPO }}-nginx:staging ${{ secrets.DOCKER_REPO }}-nginx:${{ env.TAG_MINOR }}
+
+            -   name: Push Docker image
+                run: |
+                    docker push --all-tags ${{ secrets.DOCKER_REPO }}-php
+                    docker push --all-tags ${{ secrets.DOCKER_REPO }}-nginx
+
+            -   name: Deploy
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.SSH_HOST }}
+                    username: ${{ secrets.SSH_USERNAME }}
+                    key: ${{ secrets.SSH_KEY }}
+                    passphrase: ${{ secrets.SSH_PASSPHRASE }}
+                    port: ${{ secrets.SSH_PORT }}
+                    script: ${{ secrets.SSH_COMMAND_PRODUCTION }}
