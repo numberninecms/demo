@@ -11,7 +11,7 @@ on:
 
 jobs:
     build:
-        name: Build and deploy
+        name: Deploy to staging
 
         if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
 
@@ -72,8 +72,8 @@ jobs:
 
             -   name: Build Docker image
                 run: |
-                    docker build --no-cache -t ${{ secrets.DOCKER_REPO }}-php:latest -f ./docker/Dockerfile --target app_php .
-                    docker build --no-cache -t ${{ secrets.DOCKER_REPO }}-nginx:latest -f ./docker/Dockerfile --target app_nginx .
+                    docker build --no-cache -t ${{ secrets.DOCKER_REPO }}-php:staging -f ./docker/Dockerfile --target app_php .
+                    docker build --no-cache -t ${{ secrets.DOCKER_REPO }}-nginx:staging -f ./docker/Dockerfile --target app_nginx .
 
             -   name: Push Docker image
                 run: |
