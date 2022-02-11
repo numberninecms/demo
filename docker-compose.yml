@@ -8,7 +8,7 @@ services:
     nginx:
         image: nginx:alpine
         ports:
-            - 8080:443
+            - '8080:443'
         restart: 'no'
         working_dir: /srv/app
         volumes:
@@ -50,7 +50,7 @@ services:
         image: maildev/maildev
         command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
         ports:
-            - 8010:80
+            - '8010:80'
         restart: 'no'
 
 volumes:
