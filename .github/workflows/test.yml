@@ -13,6 +13,9 @@ on:
         paths-ignore:
             - '**/README.md'
             - '**/LICENSE'
+    workflow_dispatch:
+        branches:
+            - master
 
 jobs:
     test:
